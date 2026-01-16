@@ -77,7 +77,7 @@ def script_properties():
             source_id = obs.obs_source_get_name(source)
             obs.obs_property_list_add_string(source_list, source_id, source_id)
             obs.obs_property_list_add_string(target_list, source_id, source_id)
-        obs.source_list_release(sources)
+        obs.obs_source_list_release(sources)
     
     # Add enable/disable toggle
     obs.obs_properties_add_bool(
