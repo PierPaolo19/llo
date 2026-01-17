@@ -21,7 +21,7 @@ source_info.get_defaults = function(settings)
     obs.obs_data_set_default_bool(settings, "tracking_enabled", true)
     obs.obs_data_set_default_double(settings, "smoothing_factor", 0.7)
     obs.obs_data_set_default_bool(settings, "draw_bounding_box", true)
-    obs.obs_data_set_default_int(settings, "box_color", 0x00FF00)
+    obs.obs_data_set_default_string(settings, "box_color", "#00FF00")
     obs.obs_data_set_default_string(settings, "follow_mode", "center")
 end
 
@@ -78,7 +78,7 @@ source_info.update = function(data, settings)
     data.tracking_enabled = obs.obs_data_get_bool(settings, "tracking_enabled")
     data.smoothing_factor = obs.obs_data_get_double(settings, "smoothing_factor")
     data.draw_bounding_box = obs.obs_data_get_bool(settings, "draw_bounding_box")
-    data.box_color = obs.obs_data_get_int(settings, "box_color")
+    data.box_color = obs.obs_data_get_string(settings, "box_color")
     data.follow_mode = obs.obs_data_get_string(settings, "follow_mode")
 end
 
