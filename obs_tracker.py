@@ -36,6 +36,8 @@ class OBSTracker:
                     'follow_speed': 0.05,
                     'min_zoom': 1.0,
                     'max_zoom': 5.0,
+                    'default_zoom': 1.5,
+                    'position_scale': 100,
                     'detection_threshold': 0.5
                 },
                 'camera': {'source_name': 'Camera', 'scene_name': 'Main Scene'}
@@ -151,7 +153,7 @@ class OBSTracker:
                     frame_width / (max_distance * 4))
             )
         else:
-            target_zoom = 1.5  # Default zoom for single object
+            target_zoom = self.config['tracking']['default_zoom']  # Default zoom for single object
         
         # Smooth transition
         zoom_speed = self.config['tracking']['zoom_speed']
@@ -176,11 +178,12 @@ class OBSTracker:
             return False
         
         # Update transform with new zoom and position
+        position_scale = self.config['tracking']['position_scale']
         new_transform = {
             'scaleX': zoom,
             'scaleY': zoom,
-            'positionX': current_transform.get('positionX', 0) + position['x'] * 100,
-            'positionY': current_transform.get('positionY', 0) + position['y'] * 100
+            'positionX': current_transform.get('positionX', 0) + position['x'] * position_scale,
+            'positionY': current_transform.get('positionY', 0) + position['y'] * position_scale
         }
         
         # Apply transform

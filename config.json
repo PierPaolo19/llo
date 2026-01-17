@@ -9,6 +9,8 @@
     "follow_speed": 0.05,
     "min_zoom": 1.0,
     "max_zoom": 5.0,
+    "default_zoom": 1.5,
+    "position_scale": 100,
     "detection_threshold": 0.5
   },
   "camera": {

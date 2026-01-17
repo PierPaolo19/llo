@@ -47,6 +47,8 @@ Edit `config.json` to customize the tracking behavior:
     "follow_speed": 0.05,
     "min_zoom": 1.0,
     "max_zoom": 5.0,
+    "default_zoom": 1.5,
+    "position_scale": 100,
     "detection_threshold": 0.5
   },
   "camera": {
@@ -65,6 +67,8 @@ Edit `config.json` to customize the tracking behavior:
 - **tracking.follow_speed**: Speed of position following (0.0-1.0)
 - **tracking.min_zoom**: Minimum zoom level
 - **tracking.max_zoom**: Maximum zoom level
+- **tracking.default_zoom**: Default zoom for single object tracking
+- **tracking.position_scale**: Position movement scaling factor
 - **tracking.detection_threshold**: Object detection confidence threshold
 - **camera.source_name**: Name of the camera source in OBS
 - **camera.scene_name**: Name of the scene containing the camera
