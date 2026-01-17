@@ -1,0 +1,33 @@
+{
+  "version": "1.0.0",
+  "name": "OBS Configuration",
+  "description": "OBS Studio configuration file for plugins and filters",
+  "plugins": [
+    {
+      "id": "face-track-filter",
+      "name": "Face Track Filter",
+      "version": "1.0.0",
+      "enabled": true,
+      "type": "filter",
+      "path": "../obs-plugins/face-track-filter"
+    }
+  ],
+  "settings": {
+    "video": {
+      "base_width": 1920,
+      "base_height": 1080,
+      "output_width": 1920,
+      "output_height": 1080,
+      "fps_num": 30,
+      "fps_den": 1
+    },
+    "filters": {
+      "face-tracking": {
+        "enabled": true,
+        "detection_confidence": 0.5,
+        "tracking_smoothness": 0.7,
+        "update_rate_ms": 33
+      }
+    }
+  }
+}
