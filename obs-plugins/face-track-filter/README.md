@@ -2,6 +2,8 @@
 
 A filter plugin for OBS Studio that tracks faces in video streams and provides various tracking and follow modes.
 
+> **Note**: This is a framework implementation that provides the plugin structure and OBS integration. The actual face detection algorithms would require integration with computer vision libraries (OpenCV, MediaPipe, etc.) through OBS's native plugin interface for full functionality.
+
 ## Features
 
 - **Face Detection**: Multiple detection methods supported
@@ -78,7 +80,21 @@ Color of the bounding box (when enabled).
 
 ## Technical Notes
 
-The plugin uses Lua scripting capabilities of OBS Studio. The actual face detection would require integration with computer vision libraries (OpenCV, MediaPipe, etc.) through OBS's native plugin interface for optimal performance.
+**Important**: This is a framework/skeleton implementation that provides:
+- Complete OBS plugin structure and integration
+- UI property definitions and settings management
+- Plugin lifecycle management (create, update, destroy)
+- Video filter callbacks
+
+**Not Included**: The actual face detection algorithms require integration with computer vision libraries (OpenCV, MediaPipe, etc.) through OBS's native plugin interface. This Lua implementation provides the plugin framework, but production face detection would need a native C/C++ plugin component for optimal performance.
+
+For a fully functional implementation, you would need to:
+1. Create a native OBS plugin in C/C++
+2. Integrate a face detection library (OpenCV, dlib, MediaPipe)
+3. Implement the actual detection and tracking algorithms
+4. Provide the Lua interface as a wrapper for user-friendly settings
+
+This framework serves as a blueprint and reference implementation for building such a plugin.
 
 ## License
 

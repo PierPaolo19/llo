@@ -108,13 +108,16 @@ end
 
 -- Video tick callback (for face detection/tracking logic)
 source_info.video_tick = function(data, seconds)
-    -- This is where face detection/tracking would be performed
-    -- In a real implementation, this would:
-    -- 1. Get the current video frame
-    -- 2. Run face detection algorithm
-    -- 3. Update tracked face positions
-    -- 4. Apply smoothing
-    -- 5. Update the video transform based on follow mode
+    -- This is a framework implementation showing the structure
+    -- In a production implementation, this would:
+    -- 1. Get the current video frame from OBS
+    -- 2. Run face detection algorithm (requires CV library integration)
+    -- 3. Update tracked face positions with smoothing
+    -- 4. Apply transformations based on follow mode
+    -- 5. Render bounding boxes if enabled
+    --
+    -- Note: Actual face detection requires native plugin integration
+    -- with computer vision libraries (OpenCV, MediaPipe, etc.)
 end
 
 -- Get video info
