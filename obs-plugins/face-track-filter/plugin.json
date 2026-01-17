@@ -1,0 +1,63 @@
+{
+  "id": "face-track-filter",
+  "name": "Face Track Filter",
+  "version": "1.0.0",
+  "description": "A filter plugin for tracking faces in video streams",
+  "author": "llo Contributors",
+  "type": "filter",
+  "main": "face-track-filter.lua",
+  "settings": {
+    "detection_method": {
+      "type": "list",
+      "description": "Face detection method",
+      "default": "haar_cascade",
+      "options": [
+        "haar_cascade",
+        "dnn",
+        "mediapipe"
+      ]
+    },
+    "confidence_threshold": {
+      "type": "float",
+      "description": "Minimum confidence for face detection",
+      "default": 0.5,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "tracking_enabled": {
+      "type": "bool",
+      "description": "Enable face tracking",
+      "default": true
+    },
+    "smoothing_factor": {
+      "type": "float",
+      "description": "Smoothing factor for tracking",
+      "default": 0.7,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "draw_bounding_box": {
+      "type": "bool",
+      "description": "Draw bounding box around detected faces",
+      "default": true
+    },
+    "box_color": {
+      "type": "color",
+      "description": "Color of the bounding box",
+      "default": "#00FF00"
+    },
+    "follow_mode": {
+      "type": "list",
+      "description": "Camera follow mode",
+      "default": "center",
+      "options": [
+        "none",
+        "center",
+        "zoom"
+      ]
+    }
+  },
+  "dependencies": {
+    "obs-studio": ">=27.0.0"
+  }
+}
