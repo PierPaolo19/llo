@@ -139,7 +139,7 @@ llo/
 If you get an error about `shape_predictor_68_face_landmarks.dat`:
 
 1. Run `python download_model.py` to download automatically
-2. Or manually download from: http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2
+2. Or manually download from: https://github.com/davisking/dlib-models/raw/master/shape_predictor_68_face_landmarks.dat.bz2
 3. Extract and place in the project directory
 
 ### Webcam Not Working

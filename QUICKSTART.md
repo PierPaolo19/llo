@@ -66,7 +66,7 @@ pip install dlib
 If dlib installation fails:
 - **macOS**: `brew install cmake` then retry
 - **Linux**: `sudo apt-get install cmake` then retry
-- **Windows**: Use pre-built wheels from https://github.com/sachadee/Dlib
+- **Windows**: Download pre-built wheels from the official repository or use conda
 
 ### "Cannot find shape_predictor_68_face_landmarks.dat"
 ```bash

@@ -23,7 +23,7 @@ class FaceChanger:
             self.predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
         except RuntimeError:
             print("Error: Could not load shape_predictor_68_face_landmarks.dat")
-            print("Please download it from: http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2")
+            print("Please download it from: https://github.com/davisking/dlib-models/raw/master/shape_predictor_68_face_landmarks.dat.bz2")
             print("Extract and place it in the same directory as this script.")
             sys.exit(1)
     
@@ -174,13 +174,16 @@ class FaceChanger:
             elif filter_type == 'pixelate':
                 # Get face region
                 x, y, w, h = face.left(), face.top(), face.width(), face.height()
-                face_region = result[y:y+h, x:x+w]
                 
-                # Pixelate
-                if face_region.size > 0:
-                    small = cv2.resize(face_region, (w//15, h//15), interpolation=cv2.INTER_LINEAR)
-                    pixelated = cv2.resize(small, (w, h), interpolation=cv2.INTER_NEAREST)
-                    result[y:y+h, x:x+w] = pixelated
+                # Only pixelate if face is large enough
+                if w >= 15 and h >= 15:
+                    face_region = result[y:y+h, x:x+w]
+                    
+                    # Pixelate
+                    if face_region.size > 0:
+                        small = cv2.resize(face_region, (w//15, h//15), interpolation=cv2.INTER_LINEAR)
+                        pixelated = cv2.resize(small, (w, h), interpolation=cv2.INTER_NEAREST)
+                        result[y:y+h, x:x+w] = pixelated
             
             # Draw rectangle around face
             x, y, w, h = face.left(), face.top(), face.width(), face.height()
@@ -192,7 +195,7 @@ class FaceChanger:
 def main():
     """Main function to run real-time face changer."""
     parser = argparse.ArgumentParser(description='Real-time Face Changer Tool')
-    parser.add_argument('--source', type=int, default=0, 
+    parser.add_argument('--source', type=str, default='0', 
                         help='Video source (0 for webcam, or video file path)')
     parser.add_argument('--filter', type=str, default='landmarks',
                         choices=['landmarks', 'blur', 'pixelate'],
@@ -206,8 +209,13 @@ def main():
     print("Initializing face changer...")
     face_changer = FaceChanger()
     
-    # Open video source
-    cap = cv2.VideoCapture(args.source)
+    # Open video source - handle both integer (webcam) and string (file) sources
+    try:
+        source = int(args.source)
+    except ValueError:
+        source = args.source
+    
+    cap = cv2.VideoCapture(source)
     if not cap.isOpened():
         print("Error: Could not open video source")
         return
@@ -216,6 +224,10 @@ def main():
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     fps = int(cap.get(cv2.CAP_PROP_FPS))
+    
+    # Use default FPS if not available (common with webcams)
+    if fps <= 0:
+        fps = 20
     
     # Initialize video writer if save path is provided
     out = None

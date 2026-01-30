@@ -21,7 +21,7 @@ class FaceSwapper:
             self.predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
         except RuntimeError:
             print("Error: Could not load shape_predictor_68_face_landmarks.dat")
-            print("Download from: http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2")
+            print("Download from: https://github.com/davisking/dlib-models/raw/master/shape_predictor_68_face_landmarks.dat.bz2")
             sys.exit(1)
     
     def get_face_landmarks(self, image):
@@ -106,8 +106,17 @@ class FaceSwapper:
         dst_rect = cv2.boundingRect(dst_hull)
         subdiv = cv2.Subdiv2D(dst_rect)
         
+        # Insert landmarks, checking bounds
         for point in dst_landmarks:
-            subdiv.insert((int(point[0]), int(point[1])))
+            x, y = int(point[0]), int(point[1])
+            # Check if point is within bounds
+            if (dst_rect[0] <= x < dst_rect[0] + dst_rect[2] and
+                dst_rect[1] <= y < dst_rect[1] + dst_rect[3]):
+                try:
+                    subdiv.insert((x, y))
+                except:
+                    # Skip points that cause issues
+                    pass
         
         triangles = subdiv.getTriangleList()
         triangles = np.array(triangles, dtype=np.int32)
@@ -134,7 +143,9 @@ class FaceSwapper:
                 x, y, w, h = rect
                 
                 # Crop triangle from source and destination
-                if x >= 0 and y >= 0 and x+w <= src_img.shape[1] and y+h <= src_img.shape[0]:
+                if (x >= 0 and y >= 0 and 
+                    x+w <= src_img.shape[1] and y+h <= src_img.shape[0] and
+                    x+w <= dst_img.shape[1] and y+h <= dst_img.shape[0]):
                     src_crop = src_img[y:y+h, x:x+w]
                     dst_crop = output[y:y+h, x:x+w]
                     

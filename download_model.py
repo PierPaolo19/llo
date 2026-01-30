@@ -11,7 +11,7 @@ import sys
 
 def download_shape_predictor():
     """Download and extract the shape predictor model."""
-    url = "http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2"
+    url = "https://github.com/davisking/dlib-models/raw/master/shape_predictor_68_face_landmarks.dat.bz2"
     compressed_file = "shape_predictor_68_face_landmarks.dat.bz2"
     extracted_file = "shape_predictor_68_face_landmarks.dat"
     
@@ -52,9 +52,14 @@ def download_shape_predictor():
 
 def download_progress(block_num, block_size, total_size):
     """Display download progress."""
-    downloaded = block_num * block_size
-    percent = min(downloaded * 100.0 / total_size, 100.0)
-    sys.stdout.write(f"\rProgress: {percent:.1f}% ({downloaded / 1024 / 1024:.1f} MB)")
+    if total_size <= 0:
+        # Cannot calculate progress without total size
+        downloaded = block_num * block_size
+        sys.stdout.write(f"\rDownloaded: {downloaded / 1024 / 1024:.1f} MB")
+    else:
+        downloaded = block_num * block_size
+        percent = min(downloaded * 100.0 / total_size, 100.0)
+        sys.stdout.write(f"\rProgress: {percent:.1f}% ({downloaded / 1024 / 1024:.1f} MB)")
     sys.stdout.flush()
 
 
