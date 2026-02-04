@@ -1,0 +1,31 @@
+{
+  "name": "llo",
+  "version": "1.0.0",
+  "description": "Learn Ledger Operations - Educational blockchain testing tool for testnets only",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "examples": "node examples/basic-transfer.js",
+    "safety-test": "node examples/safety-test.js",
+    "test": "npm run safety-test"
+  },
+  "keywords": [
+    "blockchain",
+    "education",
+    "testnet",
+    "learning",
+    "cryptocurrency",
+    "ethereum",
+    "bsc",
+    "polygon",
+    "tron"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
