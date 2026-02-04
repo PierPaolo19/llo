@@ -46,6 +46,9 @@ const TESTNETS = {
   tron_shasta: {
     name: 'Tron Shasta Testnet',
     rpc: 'https://api.shasta.trongrid.io',
+    // Note: Tron uses a different addressing system than EVM chains
+    // and doesn't have a traditional chainId
+    chainId: null,
     explorer: 'https://shasta.tronscan.org',
     faucet: 'https://www.trongrid.io/shasta/',
     currency: 'TRX'
@@ -53,7 +56,9 @@ const TESTNETS = {
 };
 
 // MAINNET BLOCKER - Prevent any mainnet usage
-const MAINNET_CHAIN_IDS = [1, 56, 137, 728126428]; // Ethereum, BSC, Polygon, Tron mainnet
+// Note: Tron doesn't use standard EVM chain IDs, so Tron mainnet blocking
+// relies on keyword detection in validateNetworkConfig()
+const MAINNET_CHAIN_IDS = [1, 56, 137]; // Ethereum, BSC, Polygon mainnet
 const MAINNET_KEYWORDS = ['mainnet', 'main-net', 'production', 'prod'];
 
 /**

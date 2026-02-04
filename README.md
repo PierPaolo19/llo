@@ -21,7 +21,7 @@ This tool supports the following **test networks**:
 - **Ethereum Testnets**: Sepolia, Goerli (deprecated but available)
 - **Binance Smart Chain Testnet**: BSC Testnet
 - **Polygon Testnet**: Mumbai
-- **Tron Testnet**: Shasta, Nile
+- **Tron Testnet**: Shasta
 
 ## 📖 What You Can Learn
 
