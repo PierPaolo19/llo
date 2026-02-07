@@ -2,6 +2,10 @@
 
 Flash USDT Script - A utility for simulating USDT operations.
 
+## ⚠️ IMPORTANT DISCLAIMER
+
+**This is a simulation tool for educational purposes only.** This script does NOT interact with real blockchains, cryptocurrency networks, or actual USDT tokens. All operations are simulated in memory and have no real-world financial impact. Do not use this for actual cryptocurrency transactions.
+
 ## Features
 
 - Flash (instantly add) USDT to your balance

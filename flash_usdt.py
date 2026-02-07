@@ -2,11 +2,15 @@
 """
 Flash USDT Script
 A utility script for simulating USDT (Tether) operations.
+
+⚠️  DISCLAIMER: This is a simulation tool for educational purposes only.
+    This script does NOT interact with real blockchains or actual USDT tokens.
+    All operations are simulated and have no real-world financial impact.
 """
 
 import argparse
 import json
-import random
+import secrets
 from datetime import datetime
 from typing import Dict, List, Optional
 
@@ -102,7 +106,7 @@ class FlashUSDT:
         Returns:
             Simulated transaction hash
         """
-        return "0x" + "".join(random.choices("0123456789abcdef", k=64))
+        return "0x" + secrets.token_hex(32)
 
 
 def main():
