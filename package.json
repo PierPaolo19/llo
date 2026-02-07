@@ -1,0 +1,27 @@
+{
+  "name": "flash-usdt",
+  "version": "1.0.0",
+  "description": "Open source flash loan implementation for USDT and other ERC20 tokens",
+  "main": "index.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy": "hardhat run scripts/deploy.js"
+  },
+  "keywords": [
+    "flash-loan",
+    "usdt",
+    "defi",
+    "ethereum",
+    "solidity"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.19.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.0"
+  }
+}
