@@ -1,10 +1,39 @@
 # Quick Start: Desktop ব্যবহার করুন (How to Use Desktop)
 
 ## ati ki vabe desktop use korbo - সম্পূর্ণ উত্তর
+## ati pc te ki vabe install korbo - সম্পূর্ণ উত্তর
+
+> 🇧🇩 **বাংলায় বিস্তারিত PC ইনস্টলেশন গাইড:** [PC_INSTALL_BENGALI.md](PC_INSTALL_BENGALI.md)
 
 এই গাইড আপনাকে দেখাবে Flash USDT Desktop Application কিভাবে ব্যবহার করতে হয়।
 
-## ⚡ দ্রুত শুরু (Quick Start)
+---
+
+## 🖥️ PC তে ইনস্টল করুন (Install on PC)
+
+### ⚡ সবচেয়ে দ্রুত উপায় (Fastest Way):
+
+#### Windows ব্যবহারকারীদের জন্য:
+```
+1. Download: Flash-USDT-Setup.exe
+2. Double-click এ চালু করুন
+3. Install করুন
+4. Desktop icon ক্লিক করুন
+✅ সম্পন্ন!
+```
+
+#### Mac/Linux ব্যবহারকারীদের জন্য:
+```bash
+git clone https://github.com/PierPaolo19/llo.git
+cd llo
+npm install
+npm run desktop
+✅ সম্পন্ন!
+```
+
+> 📖 **বিস্তারিত ইনস্টলেশন গাইড (বাংলায়):** [PC_INSTALL_BENGALI.md](PC_INSTALL_BENGALI.md)
+
+---
 
 ### ১. ইনস্টল করুন (Install)
 

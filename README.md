@@ -2,6 +2,9 @@
 
 An open-source flash loan implementation for USDT (Tether) supporting multiple blockchain networks: **ERC20** (Ethereum, Polygon), **BEP20** (Binance Smart Chain), and **TRC20** (Tron).
 
+> 🇧🇩 **বাংলায় PC ইনস্টল গাইড (Bengali PC Installation Guide):** [PC_INSTALL_BENGALI.md](PC_INSTALL_BENGALI.md)  
+> "ati pc te ki vabe install korbo" - সম্পূর্ণ উত্তর এখানে!
+
 ## 🌐 Multi-Chain Support
 
 Flash USDT now works across multiple networks:
@@ -47,6 +50,22 @@ See [Network Documentation](docs/NETWORKS.md) for detailed network information.
 - MetaMask or Web3-compatible wallet browser extension
 
 ## 🔧 Installation
+
+### 🇧🇩 Bengali PC Installation (বাংলায় PC ইনস্টলেশন)
+
+**"ati pc te ki vabe install korbo" জানতে চান?**
+
+সম্পূর্ণ বাংলা গাইড দেখুন: **[PC_INSTALL_BENGALI.md](PC_INSTALL_BENGALI.md)**
+
+এই গাইডে আছে:
+- Windows, macOS, Linux সব OS এর জন্য ধাপে ধাপে নির্দেশনা
+- Installer এবং Portable সংস্করণ
+- MetaMask সেটআপ (বাংলায়)
+- সমস্যা সমাধান (Troubleshooting)
+
+---
+
+### Quick Installation (English)
 
 1. Clone the repository:
 ```bash
@@ -328,6 +347,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🔗 Resources
 
 ### Documentation
+
+**Bengali (বাংলা) Guides:**
+- [PC Installation Guide (বাংলা)](PC_INSTALL_BENGALI.md) - **"ati pc te ki vabe install korbo"** - সম্পূর্ণ উত্তর
+- [Desktop Quick Start (বাংলা)](DESKTOP_QUICKSTART.md) - দ্রুত শুরু করার গাইড
+- [Desktop Usage (বাংলা)](docs/DESKTOP_BENGALI.md) - ব্যবহার নির্দেশিকা
+
+**English Guides:**
 - [Network Guide](docs/NETWORKS.md) - Multi-chain support (ERC20, BEP20, TRC20)
 - [Tron Deployment](docs/TRON.md) - TRC20 deployment instructions
 - [Desktop Application Guide](docs/DESKTOP.md) - How to use the desktop app

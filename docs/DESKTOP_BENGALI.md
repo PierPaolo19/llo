@@ -1,6 +1,36 @@
 # Flash USDT Desktop Application - Bengali Guide
 # ফ্ল্যাশ USDT ডেস্কটপ অ্যাপ্লিকেশন - বাংলা গাইড
 
+## 🖥️ ati pc te ki vabe install korbo?
+
+> **সম্পূর্ণ PC ইনস্টলেশন গাইড দেখুন:** [PC_INSTALL_BENGALI.md](../PC_INSTALL_BENGALI.md)
+
+এই ফাইলে আছে:
+- ✅ Windows, macOS, Linux সবার জন্য ইনস্টলেশন
+- ✅ ৩টি আলাদা ইনস্টলেশন পদ্ধতি
+- ✅ Installer এবং Portable সংস্করণ
+- ✅ সমস্যা সমাধান (Troubleshooting)
+- ✅ MetaMask সেটআপ গাইড
+
+### দ্রুত ইনস্টলেশন (Quick Install):
+
+**Windows:**
+```
+1. Flash-USDT-Setup.exe ডাউনলোড করুন
+2. ইনস্টল করুন
+3. Desktop থেকে চালু করুন
+```
+
+**Mac/Linux:**
+```bash
+git clone https://github.com/PierPaolo19/llo.git
+cd llo
+npm install
+npm run desktop
+```
+
+---
+
 ## Desktop কিভাবে ব্যবহার করবেন (How to Use Desktop)
 
 এই গাইড আপনাকে দেখাবে কিভাবে Flash USDT Desktop অ্যাপ্লিকেশন ব্যবহার করতে হয়।
