@@ -2,6 +2,8 @@
 
 A simple, secure, and efficient flash loan implementation for USDT and other ERC20 tokens on EVM-compatible blockchains.
 
+> 📖 **New to desktop development?** Check out our [Desktop Usage Guide](DESKTOP_GUIDE.md) (ডেস্কটপ ব্যবহার গাইড) for step-by-step instructions on using this project on your computer!
+
 ## 🌟 Features
 
 - **Flash Loans**: Borrow any amount of supported ERC20 tokens within a single transaction
@@ -221,6 +223,15 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+## 📚 Documentation
+
+- **[Desktop Usage Guide](DESKTOP_GUIDE.md)** - Complete guide for using this project on your desktop (includes Bengali/বাংলা version)
+- **[Quick Start](QUICKSTART.md)** - Get started in 5 minutes
+- **[Implementation Details](IMPLEMENTATION.md)** - Technical architecture and design
+- **[Security](SECURITY.md)** - Security best practices and vulnerability reporting
+- **[Examples](examples/EXAMPLES.md)** - Code examples and use cases
+- **[Contributing](CONTRIBUTING.md)** - Contribution guidelines
 
 ## 📄 License
 
