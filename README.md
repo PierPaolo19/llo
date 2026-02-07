@@ -1,17 +1,31 @@
-# Flash USDT - Open Source Flash Loan Protocol
+# Flash USDT - Multi-Chain Flash Loan Protocol
 
-A simple, secure, and efficient flash loan implementation for USDT and other ERC20 tokens on EVM-compatible blockchains.
+A simple, secure, and efficient flash loan implementation for USDT and other tokens across multiple blockchain networks.
+
+> 🌐 **Multi-Network Support:** Works on Ethereum (ERC20), Binance Smart Chain (BEP20), Polygon, and TRON (TRC20). See [Network Guide](NETWORK_GUIDE.md) for deployment instructions.
 
 > 📖 **New to desktop development?** Check out our [Desktop Usage Guide](DESKTOP_GUIDE.md) (ডেস্কটপ ব্যবহার গাইড) for step-by-step instructions on using this project on your computer!
 
 ## 🌟 Features
 
-- **Flash Loans**: Borrow any amount of supported ERC20 tokens within a single transaction
+- **Multi-Chain Support**: Deploy on Ethereum, BSC, Polygon, and TRON networks
+- **Flash Loans**: Borrow any amount of supported tokens within a single transaction
 - **Low Fees**: Default fee of 0.09% (9 basis points), configurable by owner
 - **Secure**: Built with OpenZeppelin contracts, includes reentrancy protection
-- **Flexible**: Support for multiple ERC20 tokens
+- **Flexible**: Support for multiple token standards (ERC20, BEP20, TRC20)
 - **Well-tested**: Comprehensive test suite included
 - **Gas Optimized**: Efficient Solidity code with compiler optimizations
+
+## 🌍 Supported Networks
+
+| Network | Token Standard | Chain ID | Status |
+|---------|---------------|----------|---------|
+| Ethereum | ERC20 | 1 (Mainnet), 11155111 (Sepolia) | ✅ Supported |
+| Binance Smart Chain | BEP20 | 56 (Mainnet), 97 (Testnet) | ✅ Supported |
+| Polygon | ERC20 | 137 (Mainnet), 80001 (Mumbai) | ✅ Supported |
+| TRON | TRC20 | Mainnet, Shasta | 📝 Documentation |
+
+See the [Network Guide](NETWORK_GUIDE.md) for detailed deployment instructions for each network.
 
 ## 📋 What are Flash Loans?
 
@@ -54,9 +68,42 @@ npm run test
 
 ### Deploy
 
+#### Local Deployment (for testing)
 ```bash
 npm run deploy
 ```
+
+#### Deploy to Specific Networks
+
+```bash
+# Ethereum Mainnet
+npm run deploy:mainnet
+
+# Binance Smart Chain
+npm run deploy:bsc
+
+# BSC Testnet
+npm run deploy:bscTestnet
+
+# Polygon Mainnet
+npm run deploy:polygon
+
+# Ethereum Sepolia Testnet
+npm run deploy:sepolia
+```
+
+**For TRON (TRC20) deployment**, see the [Network Guide](NETWORK_GUIDE.md#tron-deployment-trc20) for detailed instructions.
+
+### Network Configuration
+
+Before deploying, configure your `.env` file:
+
+```bash
+cp .env.example .env
+# Edit .env with your network RPC URLs and private key
+```
+
+See [Network Guide](NETWORK_GUIDE.md) for complete setup instructions for each network.
 
 ## 📁 Project Structure
 
@@ -208,11 +255,17 @@ await flashLoanProvider.withdraw(tokenAddress, amount, recipientAddress);
 
 Deploy your own instances or use community-deployed versions.
 
-| Network | FlashLoanProvider | Status |
-|---------|------------------|--------|
-| Mainnet | TBD | Not deployed |
-| Goerli  | TBD | Not deployed |
-| Sepolia | TBD | Not deployed |
+| Network | Chain ID | FlashLoanProvider | Status |
+|---------|----------|------------------|--------|
+| Ethereum Mainnet | 1 | TBD | Not deployed |
+| Ethereum Sepolia | 11155111 | TBD | Not deployed |
+| BSC Mainnet | 56 | TBD | Not deployed |
+| BSC Testnet | 97 | TBD | Not deployed |
+| Polygon Mainnet | 137 | TBD | Not deployed |
+| Polygon Mumbai | 80001 | TBD | Not deployed |
+| TRON Mainnet | - | TBD | Not deployed |
+
+See [Network Guide](NETWORK_GUIDE.md) for deployment instructions.
 
 ## 🤝 Contributing
 
@@ -226,6 +279,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📚 Documentation
 
+- **[Network Guide](NETWORK_GUIDE.md)** - Complete multi-chain deployment guide (ERC20, BEP20, TRC20)
 - **[Desktop Usage Guide](DESKTOP_GUIDE.md)** - Complete guide for using this project on your desktop (includes Bengali/বাংলা version)
 - **[Quick Start](QUICKSTART.md)** - Get started in 5 minutes
 - **[Implementation Details](IMPLEMENTATION.md)** - Technical architecture and design

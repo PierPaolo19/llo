@@ -6,14 +6,25 @@
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
-    "deploy": "hardhat run scripts/deploy.js"
+    "deploy": "hardhat run scripts/deploy.js",
+    "deploy:bsc": "hardhat run scripts/deploy.js --network bsc",
+    "deploy:bscTestnet": "hardhat run scripts/deploy.js --network bscTestnet",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet",
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "deploy:polygon": "hardhat run scripts/deploy.js --network polygon"
   },
   "keywords": [
     "flash-loan",
     "usdt",
     "defi",
     "ethereum",
-    "solidity"
+    "bsc",
+    "tron",
+    "solidity",
+    "erc20",
+    "bep20",
+    "trc20",
+    "multi-chain"
   ],
   "author": "",
   "license": "MIT",
@@ -22,6 +33,7 @@
     "hardhat": "^2.19.0"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^5.0.0"
+    "@openzeppelin/contracts": "^5.0.0",
+    "dotenv": "^16.3.1"
   }
 }
