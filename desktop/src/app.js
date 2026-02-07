@@ -284,6 +284,17 @@ async function loadContractData() {
     }
 }
 
+// Network type colors configuration
+const NETWORK_TYPE_COLORS = {
+    'BEP20': '#F3BA2F',  // Binance yellow/gold
+    'TRC20': '#FF0013',  // Tron red
+    'ERC20': '#627EEA'   // Ethereum blue
+};
+
+function getNetworkTypeColor(networkType) {
+    return NETWORK_TYPE_COLORS[networkType] || '#627EEA';
+}
+
 function updateUI() {
     const connectBtn = document.getElementById('connectWallet');
     const walletInfo = document.getElementById('walletInfo');
@@ -306,9 +317,16 @@ function updateUI() {
         networkNameSpan.textContent = displayName;
         currentNetworkSpan.textContent = displayName;
         
-        // Add network type indicator
+        // Add network type indicator with specific class
         if (networkInfo) {
+            // Remove existing indicator if present
+            const existingIndicator = currentNetworkSpan.querySelector('.network-type-badge');
+            if (existingIndicator) {
+                existingIndicator.remove();
+            }
+            
             const typeIndicator = document.createElement('span');
+            typeIndicator.className = 'network-type-badge';
             typeIndicator.style.cssText = `
                 display: inline-block;
                 margin-left: 10px;
@@ -316,17 +334,11 @@ function updateUI() {
                 border-radius: 4px;
                 font-size: 11px;
                 font-weight: bold;
-                background: ${networkType === 'BEP20' ? '#F3BA2F' : 
-                             networkType === 'TRC20' ? '#FF0013' : 
-                             '#627EEA'};
+                background: ${getNetworkTypeColor(networkType)};
                 color: white;
             `;
             typeIndicator.textContent = networkType;
-            
-            // Only add if not already present
-            if (!currentNetworkSpan.querySelector('span')) {
-                currentNetworkSpan.appendChild(typeIndicator);
-            }
+            currentNetworkSpan.appendChild(typeIndicator);
         }
     } else {
         connectBtn.style.display = 'block';
