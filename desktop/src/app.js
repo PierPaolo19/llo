@@ -28,17 +28,89 @@ let currentNetwork = null;
 
 // Contract addresses (update these for your deployment)
 const CONTRACT_ADDRESSES = {
-    1: { // Mainnet
+    // Ethereum Mainnet (ERC20)
+    1: {
         flashUSDT: '0x0000000000000000000000000000000000000000', // Update after deployment
-        usdt: '0xdac17f958d2ee523a2206206994597c13d831ec7'
+        usdt: '0xdac17f958d2ee523a2206206994597c13d831ec7',
+        name: 'Ethereum Mainnet',
+        type: 'ERC20',
+        explorer: 'https://etherscan.io'
     },
-    11155111: { // Sepolia
+    // Sepolia Testnet (ERC20)
+    11155111: {
         flashUSDT: '0x0000000000000000000000000000000000000000', // Update after deployment
-        usdt: '0x0000000000000000000000000000000000000000'
+        usdt: '0x0000000000000000000000000000000000000000',
+        name: 'Sepolia Testnet',
+        type: 'ERC20',
+        explorer: 'https://sepolia.etherscan.io'
     },
-    31337: { // Hardhat local
+    // Binance Smart Chain Mainnet (BEP20)
+    56: {
+        flashUSDT: '0x0000000000000000000000000000000000000000', // Update after deployment
+        usdt: '0x55d398326f99059fF775485246999027B3197955', // BSC-USD (USDT on BSC)
+        name: 'BSC Mainnet',
+        type: 'BEP20',
+        explorer: 'https://bscscan.com'
+    },
+    // BSC Testnet (BEP20)
+    97: {
+        flashUSDT: '0x0000000000000000000000000000000000000000', // Update after deployment
+        usdt: '0x0000000000000000000000000000000000000000', // Update with testnet USDT
+        name: 'BSC Testnet',
+        type: 'BEP20',
+        explorer: 'https://testnet.bscscan.com'
+    },
+    // Polygon Mainnet (ERC20 compatible)
+    137: {
+        flashUSDT: '0x0000000000000000000000000000000000000000', // Update after deployment
+        usdt: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F', // USDT on Polygon
+        name: 'Polygon Mainnet',
+        type: 'ERC20',
+        explorer: 'https://polygonscan.com'
+    },
+    // Mumbai Testnet (Polygon)
+    80001: {
+        flashUSDT: '0x0000000000000000000000000000000000000000', // Update after deployment
+        usdt: '0x0000000000000000000000000000000000000000',
+        name: 'Mumbai Testnet',
+        type: 'ERC20',
+        explorer: 'https://mumbai.polygonscan.com'
+    },
+    // Hardhat local
+    31337: {
         flashUSDT: '0x0000000000000000000000000000000000000000',
-        usdt: '0x0000000000000000000000000000000000000000'
+        usdt: '0x0000000000000000000000000000000000000000',
+        name: 'Hardhat Local',
+        type: 'ERC20',
+        explorer: 'http://localhost:8545'
+    }
+};
+
+// Network RPC endpoints for adding to MetaMask
+const NETWORK_RPCS = {
+    56: {
+        rpcUrls: ['https://bsc-dataseed.binance.org'],
+        chainName: 'Binance Smart Chain',
+        nativeCurrency: { name: 'BNB', symbol: 'BNB', decimals: 18 },
+        blockExplorerUrls: ['https://bscscan.com']
+    },
+    97: {
+        rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545'],
+        chainName: 'BSC Testnet',
+        nativeCurrency: { name: 'BNB', symbol: 'BNB', decimals: 18 },
+        blockExplorerUrls: ['https://testnet.bscscan.com']
+    },
+    137: {
+        rpcUrls: ['https://polygon-rpc.com'],
+        chainName: 'Polygon Mainnet',
+        nativeCurrency: { name: 'MATIC', symbol: 'MATIC', decimals: 18 },
+        blockExplorerUrls: ['https://polygonscan.com']
+    },
+    80001: {
+        rpcUrls: ['https://rpc-mumbai.maticvigil.com'],
+        chainName: 'Mumbai Testnet',
+        nativeCurrency: { name: 'MATIC', symbol: 'MATIC', decimals: 18 },
+        blockExplorerUrls: ['https://mumbai.polygonscan.com']
     }
 };
 
@@ -69,6 +141,66 @@ function setupEventListeners() {
     // Liquidity management
     document.getElementById('depositBtn').addEventListener('click', handleDeposit);
     document.getElementById('withdrawBtn').addEventListener('click', handleWithdraw);
+    
+    // Network switching buttons (if they exist)
+    const addBscBtn = document.getElementById('addBscNetwork');
+    const addPolygonBtn = document.getElementById('addPolygonNetwork');
+    if (addBscBtn) addBscBtn.addEventListener('click', () => addNetworkToMetaMask(56));
+    if (addPolygonBtn) addPolygonBtn.addEventListener('click', () => addNetworkToMetaMask(137));
+}
+
+// Function to add network to MetaMask
+async function addNetworkToMetaMask(chainId) {
+    if (typeof window.ethereum === 'undefined') {
+        showNotification('Please install MetaMask', 'error');
+        return;
+    }
+    
+    const networkConfig = NETWORK_RPCS[chainId];
+    if (!networkConfig) {
+        showNotification('Network configuration not found', 'error');
+        return;
+    }
+    
+    try {
+        await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [{
+                chainId: '0x' + chainId.toString(16),
+                chainName: networkConfig.chainName,
+                nativeCurrency: networkConfig.nativeCurrency,
+                rpcUrls: networkConfig.rpcUrls,
+                blockExplorerUrls: networkConfig.blockExplorerUrls
+            }]
+        });
+        showNotification(`${networkConfig.chainName} added to MetaMask!`, 'success');
+    } catch (error) {
+        console.error('Error adding network:', error);
+        showNotification('Failed to add network: ' + error.message, 'error');
+    }
+}
+
+// Function to switch network
+async function switchNetwork(chainId) {
+    if (typeof window.ethereum === 'undefined') {
+        showNotification('Please install MetaMask', 'error');
+        return;
+    }
+    
+    try {
+        await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: '0x' + chainId.toString(16) }],
+        });
+    } catch (switchError) {
+        // This error code indicates that the chain has not been added to MetaMask
+        if (switchError.code === 4902) {
+            await addNetworkToMetaMask(chainId);
+        } else {
+            console.error('Error switching network:', switchError);
+            showNotification('Failed to switch network: ' + switchError.message, 'error');
+        }
+    }
 }
 
 async function connectWallet() {
@@ -164,14 +296,38 @@ function updateUI() {
         walletInfo.style.display = 'block';
         walletAddressSpan.textContent = walletAddress.substring(0, 6) + '...' + walletAddress.substring(38);
         
-        const networkNames = {
-            1: 'Ethereum Mainnet',
-            11155111: 'Sepolia Testnet',
-            31337: 'Hardhat Local'
-        };
-        const networkName = networkNames[currentNetwork] || `Network ${currentNetwork}`;
-        networkNameSpan.textContent = networkName;
-        currentNetworkSpan.textContent = networkName;
+        // Get network info from CONTRACT_ADDRESSES
+        const networkInfo = CONTRACT_ADDRESSES[currentNetwork];
+        let networkName = networkInfo ? networkInfo.name : `Unknown Network (${currentNetwork})`;
+        let networkType = networkInfo ? networkInfo.type : 'Unknown';
+        
+        // Add network type badge
+        const displayName = `${networkName} (${networkType})`;
+        networkNameSpan.textContent = displayName;
+        currentNetworkSpan.textContent = displayName;
+        
+        // Add network type indicator
+        if (networkInfo) {
+            const typeIndicator = document.createElement('span');
+            typeIndicator.style.cssText = `
+                display: inline-block;
+                margin-left: 10px;
+                padding: 2px 8px;
+                border-radius: 4px;
+                font-size: 11px;
+                font-weight: bold;
+                background: ${networkType === 'BEP20' ? '#F3BA2F' : 
+                             networkType === 'TRC20' ? '#FF0013' : 
+                             '#627EEA'};
+                color: white;
+            `;
+            typeIndicator.textContent = networkType;
+            
+            // Only add if not already present
+            if (!currentNetworkSpan.querySelector('span')) {
+                currentNetworkSpan.appendChild(typeIndicator);
+            }
+        }
     } else {
         connectBtn.style.display = 'block';
         walletInfo.style.display = 'none';

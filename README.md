@@ -1,6 +1,16 @@
 # Flash USDT 💸
 
-An open-source flash loan implementation for USDT (Tether) on Ethereum and EVM-compatible blockchains.
+An open-source flash loan implementation for USDT (Tether) supporting multiple blockchain networks: **ERC20** (Ethereum, Polygon), **BEP20** (Binance Smart Chain), and **TRC20** (Tron).
+
+## 🌐 Multi-Chain Support
+
+Flash USDT now works across multiple networks:
+
+- **🔷 ERC20**: Ethereum Mainnet, Sepolia, Polygon, Mumbai
+- **🟡 BEP20**: Binance Smart Chain (BSC) Mainnet & Testnet
+- **🔴 TRC20**: Tron Mainnet & Shasta (requires separate tooling)
+
+See [Network Documentation](docs/NETWORKS.md) for detailed network information.
 
 ## ⚠️ Disclaimer
 
@@ -16,10 +26,11 @@ An open-source flash loan implementation for USDT (Tether) on Ethereum and EVM-c
 - **Zero-collateral loans**: Borrow USDT without collateral
 - **Atomic transactions**: Loans must be repaid within the same transaction
 - **Low fees**: Default fee of 0.09% (9 basis points)
+- **Multi-chain support**: Deploy on Ethereum, BSC, Polygon, or Tron
 - **Flexible**: Easy to integrate into your DeFi strategies
-- **Gas optimized**: Built with efficiency in mind
+- **Gas optimized**: Built with efficiency in mind for all supported chains
 - **Well-tested**: Comprehensive test suite included
-- **Desktop Application**: User-friendly GUI for managing flash loans (ati ki vabe desktop use korbo)
+- **Desktop Application**: User-friendly GUI for managing flash loans across networks
 
 ## 📋 Prerequisites
 
@@ -81,13 +92,55 @@ npm run desktop
 ```
 
 The desktop app provides:
-- 🔗 Wallet connection (MetaMask)
+- 🔗 Wallet connection (MetaMask/Web3)
 - ⚡ Flash loan execution interface
 - 💧 Liquidity management
 - 📊 Real-time contract data
 - 📜 Transaction history
+- 🌐 Multi-network support (ETH, BSC, Polygon)
+- 🔄 Easy network switching
 
 **For detailed desktop usage instructions, see [Desktop Documentation](docs/DESKTOP.md)**
+
+### Deploy to Different Networks
+
+The project supports deployment to multiple blockchain networks:
+
+#### Ethereum & EVM-Compatible Chains
+
+```bash
+# Deploy to Ethereum Mainnet
+npx hardhat run scripts/deploy.js --network mainnet
+
+# Deploy to Sepolia Testnet
+npx hardhat run scripts/deploy.js --network sepolia
+
+# Deploy to BSC Mainnet
+npx hardhat run scripts/deploy.js --network bsc
+
+# Deploy to BSC Testnet
+npx hardhat run scripts/deploy.js --network bscTestnet
+
+# Deploy to Polygon Mainnet
+npx hardhat run scripts/deploy.js --network polygon
+
+# Deploy to Mumbai Testnet
+npx hardhat run scripts/deploy.js --network mumbai
+```
+
+#### Configuration
+
+Create a `.env` file with your private key:
+
+```bash
+PRIVATE_KEY=your_private_key_without_0x_prefix
+```
+
+#### Tron (TRC20)
+
+Tron requires different tooling. See the [Tron Deployment Guide](docs/TRON.md) for detailed instructions.
+
+**For complete network information, see [Network Documentation](docs/NETWORKS.md)**
 
 ### Compile Contracts
 
@@ -238,11 +291,24 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Resources
 
+### Documentation
+- [Network Guide](docs/NETWORKS.md) - Multi-chain support (ERC20, BEP20, TRC20)
+- [Tron Deployment](docs/TRON.md) - TRC20 deployment instructions
+- [Desktop Application Guide](docs/DESKTOP.md) - How to use the desktop app
+- [Getting Started](docs/GETTING_STARTED.md) - Complete setup guide
+- [Technical Documentation](docs/TECHNICAL.md) - Technical specifications
+
+### External Resources
 - [Hardhat Documentation](https://hardhat.org/docs)
 - [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts)
 - [Solidity Documentation](https://docs.soliditylang.org)
 - [Flash Loans Explained](https://www.aave.com/flash-loans)
-- [Desktop Application Guide](docs/DESKTOP.md) - How to use the desktop app (ati ki vabe desktop use korbo)
+
+### Network-Specific
+- [Ethereum](https://ethereum.org/developers)
+- [Binance Smart Chain](https://docs.bnbchain.org)
+- [Polygon](https://docs.polygon.technology)
+- [Tron](https://developers.tron.network)
 
 ## ⚡ Flash Loan Flow
 

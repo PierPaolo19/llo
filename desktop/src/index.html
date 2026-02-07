@@ -27,7 +27,7 @@
         <main class="main-content">
             <!-- Network Status -->
             <div class="card network-card">
-                <h2>📡 Network Status</h2>
+                <h2>📡 Network Status & Configuration</h2>
                 <div class="status-grid">
                     <div class="status-item">
                         <label>Network:</label>
@@ -45,6 +45,22 @@
                         <label>Flash Loan Fee:</label>
                         <span id="flashLoanFee">0.09%</span>
                     </div>
+                </div>
+                
+                <!-- Network Quick Actions -->
+                <div class="network-actions" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-color);">
+                    <h3 style="font-size: 16px; margin-bottom: 15px;">🌐 Add Networks to MetaMask</h3>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button id="addBscNetwork" class="btn btn-secondary" style="font-size: 13px; padding: 8px 16px;">
+                            Add BSC Network
+                        </button>
+                        <button id="addPolygonNetwork" class="btn btn-secondary" style="font-size: 13px; padding: 8px 16px;">
+                            Add Polygon Network
+                        </button>
+                    </div>
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-top: 10px;">
+                        Click to add BEP20 (BSC) or ERC20 (Polygon) networks to your wallet
+                    </p>
                 </div>
             </div>
 
