@@ -19,6 +19,7 @@ An open-source flash loan implementation for USDT (Tether) on Ethereum and EVM-c
 - **Flexible**: Easy to integrate into your DeFi strategies
 - **Gas optimized**: Built with efficiency in mind
 - **Well-tested**: Comprehensive test suite included
+- **Desktop Application**: User-friendly GUI for managing flash loans (ati ki vabe desktop use korbo)
 
 ## 📋 Prerequisites
 
@@ -70,6 +71,23 @@ Example implementation showing how to:
 - Repay the loan with fees
 
 ## 📖 Usage
+
+### Desktop Application (ati ki vabe desktop use korbo)
+
+**Launch the desktop application for a user-friendly interface:**
+
+```bash
+npm run desktop
+```
+
+The desktop app provides:
+- 🔗 Wallet connection (MetaMask)
+- ⚡ Flash loan execution interface
+- 💧 Liquidity management
+- 📊 Real-time contract data
+- 📜 Transaction history
+
+**For detailed desktop usage instructions, see [Desktop Documentation](docs/DESKTOP.md)**
 
 ### Compile Contracts
 
@@ -224,6 +242,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts)
 - [Solidity Documentation](https://docs.soliditylang.org)
 - [Flash Loans Explained](https://www.aave.com/flash-loans)
+- [Desktop Application Guide](docs/DESKTOP.md) - How to use the desktop app (ati ki vabe desktop use korbo)
 
 ## ⚡ Flash Loan Flow
 

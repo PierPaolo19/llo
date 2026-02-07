@@ -2,12 +2,15 @@
   "name": "flash-usdt",
   "version": "1.0.0",
   "description": "Flash USDT - Open source flash loan implementation for USDT",
-  "main": "index.js",
+  "main": "desktop/main.js",
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
     "deploy": "hardhat run scripts/deploy.js",
-    "node": "hardhat node"
+    "node": "hardhat node",
+    "desktop": "electron .",
+    "desktop:build": "electron-builder",
+    "desktop:build-all": "electron-builder -mwl"
   },
   "keywords": [
     "flash-loan",
@@ -15,15 +18,42 @@
     "defi",
     "ethereum",
     "solidity",
-    "smart-contracts"
+    "smart-contracts",
+    "desktop",
+    "electron"
   ],
   "author": "PierPaolo19",
   "license": "MIT",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1",
     "hardhat": "^2.19.0"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^5.0.0"
+    "@openzeppelin/contracts": "^5.0.0",
+    "ethers": "^6.9.0"
+  },
+  "build": {
+    "appId": "com.flashusdt.app",
+    "productName": "Flash USDT",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "desktop/**/*",
+      "node_modules/**/*",
+      "artifacts/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.finance"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage",
+      "category": "Finance"
+    }
   }
 }
