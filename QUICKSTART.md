@@ -137,46 +137,6 @@ npm run deploy:polygon
 
 TRON requires different tooling. See the [Network Guide - TRON Section](NETWORK_GUIDE.md#tron-deployment-trc20) for complete instructions.
 
-2. Deploy the contracts in another terminal:
-```bash
-npm run deploy
-```
-
-You'll see output like:
-```
-FlashLoanProvider deployed to: 0x5FbDB2315678afecb367f032d93F642f64180aa3
-FlashLoanReceiverExample deployed to: 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
-```
-
-## Deploy to Testnet
-
-1. Create a `.env` file:
-```bash
-cp .env.example .env
-```
-
-2. Add your configuration to `.env`:
-```
-PRIVATE_KEY=your_private_key_here
-GOERLI_RPC_URL=https://goerli.infura.io/v3/YOUR_INFURA_KEY
-ETHERSCAN_API_KEY=your_etherscan_key_here
-```
-
-3. Update `hardhat.config.js` to include your network:
-```javascript
-networks: {
-  goerli: {
-    url: process.env.GOERLI_RPC_URL,
-    accounts: [process.env.PRIVATE_KEY]
-  }
-}
-```
-
-4. Deploy:
-```bash
-npx hardhat run scripts/deploy.js --network goerli
-```
-
 ## Using Flash Loans
 
 ### Step 1: Create Your Receiver Contract
