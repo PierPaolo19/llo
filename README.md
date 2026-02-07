@@ -2,6 +2,8 @@
 
 An open-source flash loan implementation for USDT (Tether) supporting multiple blockchain networks: **ERC20** (Ethereum, Polygon), **BEP20** (Binance Smart Chain), and **TRC20** (Tron).
 
+> 🎓 **New to Flash Loans?** Start with our **[Education Hub](docs/EDUCATION.md)** and **[Tutorial Series](docs/tutorials/TUTORIAL_INDEX.md)**!
+
 > 🇧🇩 **বাংলায় PC ইনস্টল গাইড (Bengali PC Installation Guide):** [PC_INSTALL_BENGALI.md](PC_INSTALL_BENGALI.md)  
 > "ati pc te ki vabe install korbo" - সম্পূর্ণ উত্তর এখানে!
 
@@ -345,6 +347,18 @@ Contributions are welcome! Please:
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🔗 Resources
+
+### 🎓 Educational Resources
+
+**Start Here** (New to Flash Loans):
+- [📚 Education Hub](docs/EDUCATION.md) - **Complete guide to understanding flash loans**
+- [🎯 Tutorial Series](docs/tutorials/TUTORIAL_INDEX.md) - **Step-by-step hands-on tutorials**
+  - [Tutorial 1: Flash Loan Basics](docs/tutorials/TUTORIAL_01_BASICS.md)
+  - [Tutorial 2: Your First Flash Loan](docs/tutorials/TUTORIAL_02_FIRST_LOAN.md)
+  - [Tutorial 3: Arbitrage Strategies](docs/tutorials/TUTORIAL_03_ARBITRAGE.md)
+  - [Tutorial 4: Security Best Practices](docs/tutorials/TUTORIAL_04_SECURITY.md)
+- [💡 Use Cases](docs/USE_CASES.md) - **Real-world applications with examples**
+- [❓ FAQ](docs/FAQ.md) - **Frequently Asked Questions**
 
 ### Documentation
 
