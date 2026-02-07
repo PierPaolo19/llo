@@ -346,6 +346,42 @@ Contributions are welcome! Please:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## 📦 Releases
+
+### Latest Release
+
+Check out the [latest release](https://github.com/PierPaolo19/llo/releases/latest) for:
+- Pre-built desktop applications (Windows, macOS, Linux)
+- Release notes and changelog
+- Source code snapshots
+
+### Creating Releases
+
+**Want to create a release?** See our comprehensive guides:
+
+- [📖 Releases Guide (English)](docs/RELEASES.md) - Complete guide for creating releases
+- [📖 Releases Guide (বাংলা/Bengali)](docs/RELEASES_BENGALI.md) - **"git Releases kivabe korbo"** - সম্পূর্ণ উত্তর
+- [📋 CHANGELOG.md](CHANGELOG.md) - Version history and changes
+
+**Quick release commands:**
+
+```bash
+# Create a patch release (bug fixes)
+./scripts/release.sh patch
+
+# Create a minor release (new features)
+./scripts/release.sh minor
+
+# Create a major release (breaking changes)
+./scripts/release.sh major
+```
+
+The release workflow automatically:
+- ✅ Builds desktop apps for Windows, macOS, and Linux
+- ✅ Creates GitHub release with notes
+- ✅ Uploads all binaries
+- ✅ Tags the release
+
 ## 🔗 Resources
 
 ### 🎓 Educational Resources
@@ -364,6 +400,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Bengali (বাংলা) Guides:**
 - [PC Installation Guide (বাংলা)](PC_INSTALL_BENGALI.md) - **"ati pc te ki vabe install korbo"** - সম্পূর্ণ উত্তর
+- [Releases Guide (বাংলা)](docs/RELEASES_BENGALI.md) - **"git Releases kivabe korbo"** - সম্পূর্ণ উত্তর
 - [Desktop Quick Start (বাংলা)](DESKTOP_QUICKSTART.md) - দ্রুত শুরু করার গাইড
 - [Desktop Usage (বাংলা)](docs/DESKTOP_BENGALI.md) - ব্যবহার নির্দেশিকা
 
@@ -372,6 +409,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Tron Deployment](docs/TRON.md) - TRC20 deployment instructions
 - [Desktop Application Guide](docs/DESKTOP.md) - How to use the desktop app
 - [Windows 10 Pro Guide](docs/WINDOWS.md) - Windows installation and troubleshooting
+- [Releases Guide](docs/RELEASES.md) - **How to create GitHub releases**
 - [Getting Started](docs/GETTING_STARTED.md) - Complete setup guide
 - [Technical Documentation](docs/TECHNICAL.md) - Technical specifications
 
