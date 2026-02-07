@@ -177,17 +177,6 @@ To add support for other networks, update the `CONTRACT_ADDRESSES` object with t
 - Only contract owner can withdraw
 - Ensure you're connected with owner wallet
 
-## Screenshots
-
-### Main Interface
-![Desktop App Main Interface](screenshots/desktop-main.png)
-
-### Flash Loan Execution
-![Flash Loan Form](screenshots/desktop-flashloan.png)
-
-### Transaction History
-![Transaction History](screenshots/desktop-history.png)
-
 ## Keyboard Shortcuts
 
 - `Ctrl+R` / `Cmd+R`: Reload app

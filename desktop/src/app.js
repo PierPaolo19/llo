@@ -1,4 +1,5 @@
-const { ethers } = require('ethers');
+// Flash USDT Desktop Application
+// Uses ethers.js from CDN for security with Electron context isolation
 
 // Contract ABIs - These would be loaded from compiled artifacts
 const FLASH_USDT_ABI = [
@@ -40,6 +41,11 @@ const CONTRACT_ADDRESSES = {
         usdt: '0x0000000000000000000000000000000000000000'
     }
 };
+
+// Helper to check if address is placeholder
+function isPlaceholderAddress(address) {
+    return !address || address === '0x0000000000000000000000000000000000000000';
+}
 
 // Initialize on load
 window.addEventListener('DOMContentLoaded', () => {
@@ -86,9 +92,11 @@ async function connectWallet() {
 
         // Initialize contracts
         const addresses = CONTRACT_ADDRESSES[currentNetwork];
-        if (addresses && addresses.flashUSDT !== '0x0000000000000000000000000000000000000000') {
+        if (addresses && !isPlaceholderAddress(addresses.flashUSDT)) {
             flashUSDTContract = new ethers.Contract(addresses.flashUSDT, FLASH_USDT_ABI, signer);
             usdtContract = new ethers.Contract(addresses.usdt, USDT_ABI, signer);
+        } else {
+            showNotification('⚠️ Contract addresses not configured for this network. Please update CONTRACT_ADDRESSES in app.js', 'warning');
         }
 
         // Update UI
@@ -246,7 +254,8 @@ async function handleDeposit() {
         // Check allowance
         const allowance = await usdtContract.allowance(walletAddress, CONTRACT_ADDRESSES[currentNetwork].flashUSDT);
         
-        if (allowance < amountWei) {
+        // Use BigInt for comparison
+        if (BigInt(allowance.toString()) < BigInt(amountWei.toString())) {
             showNotification('Approving USDT...', 'info');
             const approveTx = await usdtContract.approve(CONTRACT_ADDRESSES[currentNetwork].flashUSDT, amountWei);
             await approveTx.wait();
@@ -313,7 +322,7 @@ function addTransactionToHistory(receipt, type, details) {
             <strong>TX:</strong> ${receipt.hash}
         </div>
         <div style="font-size: 12px; color: var(--text-secondary); margin-top: 5px;">
-            Block: ${receipt.blockNumber} | Gas Used: ${receipt.gasUsed.toString()}
+            Block: ${receipt.blockNumber} | Gas Used: ${receipt.gasUsed.toLocaleString()}
         </div>
     `;
     
