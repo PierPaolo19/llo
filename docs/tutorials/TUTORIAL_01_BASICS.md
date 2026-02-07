@@ -230,7 +230,7 @@ Flash loans enable strategies that were impossible before:
 
 ## Real-World Analogy
 
-Imagine you're a art dealer:
+Imagine you're an art dealer:
 
 ### Traditional Loan Scenario
 

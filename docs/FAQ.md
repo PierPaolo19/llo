@@ -91,7 +91,7 @@ Flash USDT supports multiple networks:
 - Ethereum Mainnet (Chain ID: 1)
 - Sepolia Testnet (Chain ID: 11155111)
 - Polygon Mainnet (Chain ID: 137)
-- Mumbai Testnet (Chain ID: 80001)
+- Polygon Amoy Testnet (Chain ID: 80002)
 
 **BEP20 Networks**:
 - BSC Mainnet (Chain ID: 56)

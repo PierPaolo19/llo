@@ -478,7 +478,7 @@ Ready to implement these use cases?
 
 - 📚 [Tutorial 3: Arbitrage Strategies](tutorials/TUTORIAL_03_ARBITRAGE.md)
 - 🔧 [Technical Documentation](TECHNICAL.md)
-- 💡 [Example Contracts](../../examples/)
+- 💡 [Example Contracts](../examples/)
 
 ---
 
