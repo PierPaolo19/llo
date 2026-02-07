@@ -4,7 +4,7 @@ Unit tests for Flash USDT script.
 """
 
 import unittest
-from flash_usdt import FlashUSDT, SUPPORTED_NETWORKS
+from flash_usdt import FlashUSDT, SUPPORTED_NETWORKS, SUPPORTED_WALLETS
 
 
 class TestFlashUSDT(unittest.TestCase):
@@ -20,16 +20,61 @@ class TestFlashUSDT(unittest.TestCase):
         flash_usdt = FlashUSDT(initial_balance=0.0)
         self.assertEqual(flash_usdt.network, "ERC20")
     
+    def test_default_wallet_is_none(self):
+        """Test that default wallet is None."""
+        flash_usdt = FlashUSDT(initial_balance=0.0)
+        self.assertIsNone(flash_usdt.wallet)
+    
     def test_network_selection(self):
         """Test network selection for all supported networks."""
         for network in SUPPORTED_NETWORKS.keys():
             flash_usdt = FlashUSDT(initial_balance=0.0, network=network)
             self.assertEqual(flash_usdt.network, network)
     
+    def test_wallet_selection(self):
+        """Test wallet selection for all supported wallets."""
+        for wallet in SUPPORTED_WALLETS.keys():
+            # Get a compatible network for the wallet
+            network = SUPPORTED_WALLETS[wallet]["supported_networks"][0]
+            flash_usdt = FlashUSDT(initial_balance=0.0, network=network, wallet=wallet)
+            self.assertEqual(flash_usdt.wallet, wallet)
+    
     def test_invalid_network_raises_error(self):
         """Test that invalid network raises ValueError."""
         with self.assertRaises(ValueError):
             FlashUSDT(initial_balance=0.0, network="INVALID")
+    
+    def test_invalid_wallet_raises_error(self):
+        """Test that invalid wallet raises ValueError."""
+        with self.assertRaises(ValueError):
+            FlashUSDT(initial_balance=0.0, network="ERC20", wallet="invalid_wallet")
+    
+    def test_wallet_network_compatibility_metamask_trc20(self):
+        """Test that MetaMask cannot be used with TRC20."""
+        with self.assertRaises(ValueError) as context:
+            FlashUSDT(initial_balance=0.0, network="TRC20", wallet="metamask")
+        self.assertIn("does not support TRC20", str(context.exception))
+    
+    def test_wallet_network_compatibility_binance_all_networks(self):
+        """Test that Binance Wallet supports all networks."""
+        for network in ["TRC20", "ERC20", "BEP20"]:
+            flash_usdt = FlashUSDT(initial_balance=0.0, network=network, wallet="binance")
+            self.assertEqual(flash_usdt.network, network)
+            self.assertEqual(flash_usdt.wallet, "binance")
+    
+    def test_wallet_network_compatibility_trust_all_networks(self):
+        """Test that Trust Wallet supports all networks."""
+        for network in ["TRC20", "ERC20", "BEP20"]:
+            flash_usdt = FlashUSDT(initial_balance=0.0, network=network, wallet="trust")
+            self.assertEqual(flash_usdt.network, network)
+            self.assertEqual(flash_usdt.wallet, "trust")
+    
+    def test_wallet_network_compatibility_metamask_erc20_bep20(self):
+        """Test that MetaMask supports ERC20 and BEP20 only."""
+        for network in ["ERC20", "BEP20"]:
+            flash_usdt = FlashUSDT(initial_balance=0.0, network=network, wallet="metamask")
+            self.assertEqual(flash_usdt.network, network)
+            self.assertEqual(flash_usdt.wallet, "metamask")
     
     def test_get_network_info(self):
         """Test network info retrieval."""
@@ -39,6 +84,28 @@ class TestFlashUSDT(unittest.TestCase):
         self.assertEqual(network_info['name'], "TRON (TRC20)")
         self.assertIn('explorer', network_info)
     
+    def test_get_network_info_with_wallet(self):
+        """Test network info includes wallet when set."""
+        flash_usdt = FlashUSDT(initial_balance=0.0, network="ERC20", wallet="metamask")
+        network_info = flash_usdt.get_network_info()
+        self.assertEqual(network_info['wallet'], "MetaMask")
+    
+    def test_get_wallet_info(self):
+        """Test wallet info retrieval."""
+        flash_usdt = FlashUSDT(initial_balance=0.0, network="ERC20", wallet="trust")
+        wallet_info = flash_usdt.get_wallet_info()
+        self.assertIsNotNone(wallet_info)
+        self.assertEqual(wallet_info['wallet'], "trust")
+        self.assertEqual(wallet_info['name'], "Trust Wallet")
+        self.assertIn('description', wallet_info)
+        self.assertIn('supported_networks', wallet_info)
+    
+    def test_get_wallet_info_when_none(self):
+        """Test wallet info returns None when no wallet set."""
+        flash_usdt = FlashUSDT(initial_balance=0.0, network="ERC20")
+        wallet_info = flash_usdt.get_wallet_info()
+        self.assertIsNone(wallet_info)
+    
     def test_transaction_includes_network(self):
         """Test that transactions include network information."""
         flash_usdt = FlashUSDT(initial_balance=0.0, network="BEP20")
@@ -47,6 +114,21 @@ class TestFlashUSDT(unittest.TestCase):
         
         tx2 = flash_usdt.transfer(50.0, "0xRecipient")
         self.assertEqual(tx2['network'], "BEP20")
+    
+    def test_transaction_includes_wallet(self):
+        """Test that transactions include wallet information."""
+        flash_usdt = FlashUSDT(initial_balance=0.0, network="ERC20", wallet="binance")
+        tx = flash_usdt.flash(100.0)
+        self.assertEqual(tx['wallet'], "binance")
+        
+        tx2 = flash_usdt.transfer(50.0, "0xRecipient")
+        self.assertEqual(tx2['wallet'], "binance")
+    
+    def test_transaction_wallet_is_none_when_not_set(self):
+        """Test that wallet is None in transactions when not set."""
+        flash_usdt = FlashUSDT(initial_balance=0.0, network="ERC20")
+        tx = flash_usdt.flash(100.0)
+        self.assertIsNone(tx['wallet'])
     
     def test_trc20_tx_hash_format(self):
         """Test that TRC20 transaction hashes don't have 0x prefix."""

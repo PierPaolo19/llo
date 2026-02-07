@@ -37,23 +37,55 @@ SUPPORTED_NETWORKS = {
     }
 }
 
+# Supported cryptocurrency wallets
+SUPPORTED_WALLETS = {
+    "binance": {
+        "name": "Binance Wallet",
+        "supported_networks": ["TRC20", "ERC20", "BEP20"],
+        "description": "Multi-chain wallet from Binance"
+    },
+    "trust": {
+        "name": "Trust Wallet",
+        "supported_networks": ["TRC20", "ERC20", "BEP20"],
+        "description": "Multi-chain mobile wallet"
+    },
+    "metamask": {
+        "name": "MetaMask",
+        "supported_networks": ["ERC20", "BEP20"],
+        "description": "Ethereum and EVM-compatible wallet"
+    }
+}
+
 
 class FlashUSDT:
-    """A class to handle flash USDT operations across multiple networks."""
+    """A class to handle flash USDT operations across multiple networks and wallets."""
     
-    def __init__(self, initial_balance: float = 0.0, network: str = "ERC20"):
+    def __init__(self, initial_balance: float = 0.0, network: str = "ERC20", wallet: Optional[str] = None):
         """
         Initialize FlashUSDT instance.
         
         Args:
             initial_balance: Starting USDT balance
             network: Blockchain network (TRC20, ERC20, or BEP20)
+            wallet: Wallet to use (binance, trust, metamask, or None)
         """
         if network not in SUPPORTED_NETWORKS:
             raise ValueError(f"Unsupported network. Choose from: {', '.join(SUPPORTED_NETWORKS.keys())}")
         
+        if wallet is not None:
+            if wallet not in SUPPORTED_WALLETS:
+                raise ValueError(f"Unsupported wallet. Choose from: {', '.join(SUPPORTED_WALLETS.keys())}")
+            
+            # Check if wallet supports the selected network
+            if network not in SUPPORTED_WALLETS[wallet]["supported_networks"]:
+                raise ValueError(
+                    f"{SUPPORTED_WALLETS[wallet]['name']} does not support {network}. "
+                    f"Supported networks: {', '.join(SUPPORTED_WALLETS[wallet]['supported_networks'])}"
+                )
+        
         self.balance = initial_balance
         self.network = network
+        self.wallet = wallet
         self.transactions: List[Dict] = []
     
     def get_network_info(self) -> Dict:
@@ -63,10 +95,30 @@ class FlashUSDT:
         Returns:
             Network details
         """
-        return {
+        info = {
             "network": self.network,
             "name": SUPPORTED_NETWORKS[self.network]["name"],
             "explorer": SUPPORTED_NETWORKS[self.network]["explorer"]
+        }
+        if self.wallet:
+            info["wallet"] = SUPPORTED_WALLETS[self.wallet]["name"]
+        return info
+    
+    def get_wallet_info(self) -> Optional[Dict]:
+        """
+        Get current wallet information.
+        
+        Returns:
+            Wallet details or None if no wallet selected
+        """
+        if self.wallet is None:
+            return None
+        
+        return {
+            "wallet": self.wallet,
+            "name": SUPPORTED_WALLETS[self.wallet]["name"],
+            "description": SUPPORTED_WALLETS[self.wallet]["description"],
+            "supported_networks": SUPPORTED_WALLETS[self.wallet]["supported_networks"]
         }
     
     def check_balance(self) -> float:
@@ -97,6 +149,7 @@ class FlashUSDT:
             "amount": amount,
             "balance": self.balance,
             "network": self.network,
+            "wallet": self.wallet,
             "timestamp": datetime.now().isoformat(),
             "tx_hash": self._generate_tx_hash()
         }
@@ -127,6 +180,7 @@ class FlashUSDT:
             "recipient": recipient,
             "balance": self.balance,
             "network": self.network,
+            "wallet": self.wallet,
             "timestamp": datetime.now().isoformat(),
             "tx_hash": self._generate_tx_hash()
         }
@@ -159,13 +213,19 @@ class FlashUSDT:
 
 def main():
     """Main function to run the Flash USDT script."""
-    parser = argparse.ArgumentParser(description="Flash USDT Script - Multi-Network Support")
+    parser = argparse.ArgumentParser(description="Flash USDT Script - Multi-Network & Wallet Support")
     parser.add_argument(
         "--network",
         type=str,
         default="ERC20",
         choices=["TRC20", "ERC20", "BEP20"],
         help="Blockchain network (default: ERC20)"
+    )
+    parser.add_argument(
+        "--wallet",
+        type=str,
+        choices=["binance", "trust", "metamask"],
+        help="Wallet to use (optional)"
     )
     parser.add_argument(
         "--balance",
@@ -197,12 +257,20 @@ def main():
     args = parser.parse_args()
     
     # Initialize FlashUSDT instance
-    flash_usdt = FlashUSDT(initial_balance=args.balance, network=args.network)
+    try:
+        flash_usdt = FlashUSDT(initial_balance=args.balance, network=args.network, wallet=args.wallet)
+    except ValueError as e:
+        print(f"✗ Error: {e}")
+        return 1
+    
     network_info = flash_usdt.get_network_info()
+    wallet_info = flash_usdt.get_wallet_info()
     
     print(f"Flash USDT Script")
     print(f"=" * 50)
     print(f"Network: {network_info['name']}")
+    if wallet_info:
+        print(f"Wallet: {wallet_info['name']}")
     print(f"Initial Balance: {flash_usdt.check_balance()} USDT")
     print()
     
@@ -210,7 +278,8 @@ def main():
     if args.flash:
         try:
             tx = flash_usdt.flash(args.flash)
-            print(f"✓ Flashed {args.flash} USDT on {tx['network']}")
+            wallet_text = f" via {SUPPORTED_WALLETS[tx['wallet']]['name']}" if tx['wallet'] else ""
+            print(f"✓ Flashed {args.flash} USDT on {tx['network']}{wallet_text}")
             print(f"  TX Hash: {tx['tx_hash']}")
             print(f"  New Balance: {tx['balance']} USDT")
             print()
@@ -226,7 +295,8 @@ def main():
         
         try:
             tx = flash_usdt.transfer(args.transfer, args.recipient)
-            print(f"✓ Transferred {args.transfer} USDT to {args.recipient} on {tx['network']}")
+            wallet_text = f" via {SUPPORTED_WALLETS[tx['wallet']]['name']}" if tx['wallet'] else ""
+            print(f"✓ Transferred {args.transfer} USDT to {args.recipient} on {tx['network']}{wallet_text}")
             print(f"  TX Hash: {tx['tx_hash']}")
             print(f"  New Balance: {tx['balance']} USDT")
             print()
@@ -241,7 +311,8 @@ def main():
             print("Transaction History:")
             print("-" * 50)
             for i, tx in enumerate(transactions, 1):
-                print(f"{i}. {tx['type'].upper()} ({tx['network']})")
+                wallet_text = f" via {SUPPORTED_WALLETS[tx['wallet']]['name']}" if tx['wallet'] else ""
+                print(f"{i}. {tx['type'].upper()} ({tx['network']}{wallet_text})")
                 print(f"   Amount: {tx['amount']} USDT")
                 if tx['type'] == 'transfer':
                     print(f"   Recipient: {tx['recipient']}")
