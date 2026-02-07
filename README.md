@@ -9,7 +9,10 @@ Flash USDT Script - A utility for simulating USDT operations.
 ## Features
 
 - **Multi-Network Support**: TRC20 (TRON), ERC20 (Ethereum), BEP20 (Binance Smart Chain)
-- **Multi-Wallet Support**: Binance Wallet, Trust Wallet, MetaMask
+- **Multi-Wallet Support**: Including popular Web3 wallets
+  - Centralized: Binance Wallet
+  - Decentralized: Trust Wallet
+  - Web3: MetaMask, WalletConnect, Coinbase Wallet, Phantom, Rainbow
 - Flash (instantly add) USDT to your balance
 - Transfer USDT to recipients
 - View transaction history with network and wallet information
@@ -28,12 +31,20 @@ The script supports three blockchain networks:
 
 ### Supported Wallets
 
-The script supports three popular cryptocurrency wallets:
-- **Binance Wallet**: Supports all networks (TRC20, ERC20, BEP20)
-- **Trust Wallet**: Supports all networks (TRC20, ERC20, BEP20)
-- **MetaMask**: Supports EVM-compatible networks only (ERC20, BEP20)
+The script supports seven popular cryptocurrency wallets:
 
-Note: The script validates wallet-network compatibility and will show an error if you try to use an incompatible combination (e.g., MetaMask with TRC20).
+**Traditional Wallets:**
+- **Binance Wallet**: Supports all networks (TRC20, ERC20, BEP20) - Centralized exchange wallet
+- **Trust Wallet**: Supports all networks (TRC20, ERC20, BEP20) - Multi-chain mobile wallet
+
+**Web3 Wallets:**
+- **MetaMask**: Supports EVM-compatible networks (ERC20, BEP20) - Leading Web3 browser wallet
+- **WalletConnect**: Supports all networks (TRC20, ERC20, BEP20) - Open protocol for dApp connections
+- **Coinbase Wallet**: Supports EVM-compatible networks (ERC20, BEP20) - Self-custody Web3 wallet
+- **Phantom**: Supports EVM-compatible networks (ERC20, BEP20) - Multi-chain Web3 wallet
+- **Rainbow**: Supports Ethereum only (ERC20) - Ethereum-focused Web3 wallet
+
+Note: The script validates wallet-network compatibility and will show an error if you try to use an incompatible combination (e.g., Rainbow with BEP20).
 
 ### Basic Usage
 
@@ -67,6 +78,21 @@ Transfer USDT with Trust Wallet:
 python flash_usdt.py --network ERC20 --wallet trust --balance 100.0 --transfer 30.0 --recipient 0x1234567890abcdef
 ```
 
+Use Web3 wallets:
+```bash
+# WalletConnect on any network
+python flash_usdt.py --network TRC20 --wallet walletconnect --balance 100.0 --flash 50.0
+
+# Coinbase Wallet on Ethereum
+python flash_usdt.py --network ERC20 --wallet coinbase --balance 0 --flash 1000.0
+
+# Phantom on BSC
+python flash_usdt.py --network BEP20 --wallet phantom --balance 0 --flash 500.0
+
+# Rainbow on Ethereum only
+python flash_usdt.py --network ERC20 --wallet rainbow --balance 0 --flash 250.0
+```
+
 View transaction history with wallet info:
 ```bash
 python flash_usdt.py --network TRC20 --wallet trust --balance 100.0 --flash 50.0 --transfer 20.0 --recipient TXYZabc123 --history
@@ -75,7 +101,7 @@ python flash_usdt.py --network TRC20 --wallet trust --balance 100.0 --flash 50.0
 ### Command-line Options
 
 - `--network`: Blockchain network - TRC20, ERC20, or BEP20 (default: ERC20)
-- `--wallet`: Wallet to use - binance, trust, or metamask (optional)
+- `--wallet`: Wallet to use - binance, trust, metamask, walletconnect, coinbase, phantom, or rainbow (optional)
 - `--balance`: Initial USDT balance (default: 0.0)
 - `--flash`: Amount of USDT to flash (add instantly)
 - `--transfer`: Amount of USDT to transfer
@@ -167,19 +193,55 @@ Transaction History:
 Final Balance: 300.0 USDT
 ```
 
-### Example 5: Wallet-Network Compatibility Check
+### Example 5: Web3 Wallet with WalletConnect on TRC20
 ```bash
-$ python flash_usdt.py --network TRC20 --wallet metamask --balance 0 --flash 1000.0
-✗ Error: MetaMask does not support TRC20. Supported networks: ERC20, BEP20
+$ python flash_usdt.py --network TRC20 --wallet walletconnect --balance 0 --flash 1000.0
+Flash USDT Script
+==================================================
+Network: TRON (TRC20)
+Wallet: WalletConnect
+Initial Balance: 0.0 USDT
+
+✓ Flashed 1000.0 USDT on TRC20 via WalletConnect
+  TX Hash: 50a440b1ac81db7c2693c517451e35f62042bf4b65dcd92ff76debe1fd3b9266
+  New Balance: 1000.0 USDT
+
+Final Balance: 1000.0 USDT
+```
+
+### Example 6: Web3 Wallet with Coinbase Wallet on ERC20
+```bash
+$ python flash_usdt.py --network ERC20 --wallet coinbase --balance 0 --flash 2000.0
+Flash USDT Script
+==================================================
+Network: Ethereum (ERC20)
+Wallet: Coinbase Wallet
+Initial Balance: 0.0 USDT
+
+✓ Flashed 2000.0 USDT on ERC20 via Coinbase Wallet
+  TX Hash: 0xe857dd9cdd64cf0d6e8625e915d9d93125aa60020ecb5e30df3bb6d93a1a6a5b
+  New Balance: 2000.0 USDT
+
+Final Balance: 2000.0 USDT
+```
+
+### Example 7: Web3 Wallet Compatibility Check
+```bash
+$ python flash_usdt.py --network BEP20 --wallet rainbow --balance 0 --flash 1000.0
+✗ Error: Rainbow does not support BEP20. Supported networks: ERC20
 ```
 
 ## Wallet-Network Compatibility Matrix
 
-| Wallet | TRC20 | ERC20 | BEP20 |
-|--------|-------|-------|-------|
-| **Binance Wallet** | ✅ | ✅ | ✅ |
-| **Trust Wallet** | ✅ | ✅ | ✅ |
-| **MetaMask** | ❌ | ✅ | ✅ |
+| Wallet | TRC20 | ERC20 | BEP20 | Type |
+|--------|-------|-------|-------|------|
+| **Binance Wallet** | ✅ | ✅ | ✅ | Centralized |
+| **Trust Wallet** | ✅ | ✅ | ✅ | Decentralized |
+| **MetaMask** | ❌ | ✅ | ✅ | Web3 |
+| **WalletConnect** | ✅ | ✅ | ✅ | Web3 |
+| **Coinbase Wallet** | ❌ | ✅ | ✅ | Web3 |
+| **Phantom** | ❌ | ✅ | ✅ | Web3 |
+| **Rainbow** | ❌ | ✅ | ❌ | Web3 |
 
 ## Requirements
 

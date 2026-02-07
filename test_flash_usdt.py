@@ -231,6 +231,56 @@ class TestFlashUSDT(unittest.TestCase):
         
         transactions = flash_usdt.get_transactions()
         self.assertEqual(len(transactions), 4)
+    
+    def test_web3_wallet_walletconnect_all_networks(self):
+        """Test that WalletConnect supports all networks."""
+        for network in ["TRC20", "ERC20", "BEP20"]:
+            flash_usdt = FlashUSDT(initial_balance=0.0, network=network, wallet="walletconnect")
+            self.assertEqual(flash_usdt.network, network)
+            self.assertEqual(flash_usdt.wallet, "walletconnect")
+    
+    def test_web3_wallet_coinbase_evm_only(self):
+        """Test that Coinbase Wallet supports EVM chains only."""
+        for network in ["ERC20", "BEP20"]:
+            flash_usdt = FlashUSDT(initial_balance=0.0, network=network, wallet="coinbase")
+            self.assertEqual(flash_usdt.network, network)
+            self.assertEqual(flash_usdt.wallet, "coinbase")
+    
+    def test_web3_wallet_coinbase_no_trc20(self):
+        """Test that Coinbase Wallet does not support TRC20."""
+        with self.assertRaises(ValueError) as context:
+            FlashUSDT(initial_balance=0.0, network="TRC20", wallet="coinbase")
+        self.assertIn("does not support TRC20", str(context.exception))
+    
+    def test_web3_wallet_phantom_evm_only(self):
+        """Test that Phantom supports EVM chains only."""
+        for network in ["ERC20", "BEP20"]:
+            flash_usdt = FlashUSDT(initial_balance=0.0, network=network, wallet="phantom")
+            self.assertEqual(flash_usdt.network, network)
+            self.assertEqual(flash_usdt.wallet, "phantom")
+    
+    def test_web3_wallet_rainbow_ethereum_only(self):
+        """Test that Rainbow supports Ethereum only."""
+        flash_usdt = FlashUSDT(initial_balance=0.0, network="ERC20", wallet="rainbow")
+        self.assertEqual(flash_usdt.network, "ERC20")
+        self.assertEqual(flash_usdt.wallet, "rainbow")
+    
+    def test_web3_wallet_rainbow_no_bep20(self):
+        """Test that Rainbow does not support BEP20."""
+        with self.assertRaises(ValueError) as context:
+            FlashUSDT(initial_balance=0.0, network="BEP20", wallet="rainbow")
+        self.assertIn("does not support BEP20", str(context.exception))
+    
+    def test_web3_wallet_transaction_tracking(self):
+        """Test that Web3 wallet transactions are tracked correctly."""
+        flash_usdt = FlashUSDT(initial_balance=0.0, network="ERC20", wallet="walletconnect")
+        tx = flash_usdt.flash(100.0)
+        self.assertEqual(tx['wallet'], "walletconnect")
+        self.assertEqual(tx['network'], "ERC20")
+        
+        tx2 = flash_usdt.transfer(50.0, "0xRecipient")
+        self.assertEqual(tx2['wallet'], "walletconnect")
+        self.assertEqual(tx2['network'], "ERC20")
 
 
 if __name__ == '__main__':

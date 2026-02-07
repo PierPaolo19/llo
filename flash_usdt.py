@@ -42,17 +42,44 @@ SUPPORTED_WALLETS = {
     "binance": {
         "name": "Binance Wallet",
         "supported_networks": ["TRC20", "ERC20", "BEP20"],
-        "description": "Multi-chain wallet from Binance"
+        "description": "Multi-chain wallet from Binance",
+        "type": "centralized"
     },
     "trust": {
         "name": "Trust Wallet",
         "supported_networks": ["TRC20", "ERC20", "BEP20"],
-        "description": "Multi-chain mobile wallet"
+        "description": "Multi-chain mobile wallet",
+        "type": "decentralized"
     },
     "metamask": {
         "name": "MetaMask",
         "supported_networks": ["ERC20", "BEP20"],
-        "description": "Ethereum and EVM-compatible wallet"
+        "description": "Ethereum and EVM-compatible wallet",
+        "type": "web3"
+    },
+    "walletconnect": {
+        "name": "WalletConnect",
+        "supported_networks": ["TRC20", "ERC20", "BEP20"],
+        "description": "Open protocol for connecting wallets to dApps",
+        "type": "web3"
+    },
+    "coinbase": {
+        "name": "Coinbase Wallet",
+        "supported_networks": ["ERC20", "BEP20"],
+        "description": "Self-custody Web3 wallet from Coinbase",
+        "type": "web3"
+    },
+    "phantom": {
+        "name": "Phantom",
+        "supported_networks": ["ERC20", "BEP20"],
+        "description": "Multi-chain wallet with Web3 support",
+        "type": "web3"
+    },
+    "rainbow": {
+        "name": "Rainbow",
+        "supported_networks": ["ERC20"],
+        "description": "Ethereum-focused Web3 wallet",
+        "type": "web3"
     }
 }
 
@@ -224,7 +251,7 @@ def main():
     parser.add_argument(
         "--wallet",
         type=str,
-        choices=["binance", "trust", "metamask"],
+        choices=["binance", "trust", "metamask", "walletconnect", "coinbase", "phantom", "rainbow"],
         help="Wallet to use (optional)"
     )
     parser.add_argument(
