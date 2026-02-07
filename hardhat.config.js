@@ -19,17 +19,20 @@ module.exports = {
     
     // Ethereum Networks (ERC20)
     mainnet: {
-      url: process.env.ETHEREUM_MAINNET_RPC_URL || "https://eth-mainnet.g.alchemy.com/v2/your-api-key",
+      url: process.env.ETHEREUM_MAINNET_RPC_URL || 
+           `https://eth-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY || 'your-api-key'}`,
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       chainId: 1
     },
     goerli: {
-      url: process.env.GOERLI_RPC_URL || "https://eth-goerli.g.alchemy.com/v2/your-api-key",
+      url: process.env.GOERLI_RPC_URL || 
+           `https://eth-goerli.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY || 'your-api-key'}`,
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       chainId: 5
     },
     sepolia: {
-      url: process.env.SEPOLIA_RPC_URL || "https://eth-sepolia.g.alchemy.com/v2/your-api-key",
+      url: process.env.SEPOLIA_RPC_URL || 
+           `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY || 'your-api-key'}`,
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       chainId: 11155111
     },
@@ -50,13 +53,15 @@ module.exports = {
     
     // Polygon Networks (also ERC20 compatible)
     polygon: {
-      url: process.env.POLYGON_MAINNET_RPC_URL || "https://polygon-rpc.com",
+      url: process.env.POLYGON_MAINNET_RPC_URL || 
+           `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY || 'your-api-key'}`,
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       chainId: 137,
       gasPrice: 50000000000 // 50 gwei
     },
     mumbai: {
-      url: process.env.POLYGON_MUMBAI_RPC_URL || "https://rpc-mumbai.maticvigil.com",
+      url: process.env.POLYGON_MUMBAI_RPC_URL || 
+           `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY || 'your-api-key'}`,
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       chainId: 80001
     }
@@ -71,5 +76,13 @@ module.exports = {
       polygon: process.env.POLYGONSCAN_API_KEY || "",
       mumbai: process.env.POLYGONSCAN_API_KEY || ""
     }
+  },
+  // Optional: Gas reporter configuration
+  gasReporter: {
+    enabled: process.env.REPORT_GAS === "true",
+    currency: "USD",
+    coinmarketcap: process.env.COINMARKETCAP_API_KEY || "",
+    excludeContracts: [],
+    src: "./contracts"
   }
 };
