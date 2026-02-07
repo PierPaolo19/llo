@@ -83,23 +83,28 @@ See [Network Guide](NETWORK_GUIDE.md#tron-deployment-trc20) - Requires TronBox
 # Private Key (All networks)
 PRIVATE_KEY=your_private_key_here
 
+# Alchemy API Key (Recommended RPC provider)
+ALCHEMY_API_KEY=your_alchemy_api_key
+
 # Ethereum
-ETHEREUM_MAINNET_RPC_URL=https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY
-SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/YOUR_KEY
+ETHEREUM_MAINNET_RPC_URL=https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}
+SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}
 
 # BSC
 BSC_MAINNET_RPC_URL=https://bsc-dataseed1.binance.org
 BSC_TESTNET_RPC_URL=https://data-seed-prebsc-1-s1.binance.org:8545
 
 # Polygon
-POLYGON_MAINNET_RPC_URL=https://polygon-rpc.com
-POLYGON_MUMBAI_RPC_URL=https://rpc-mumbai.maticvigil.com
+POLYGON_MAINNET_RPC_URL=https://polygon-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}
+POLYGON_MUMBAI_RPC_URL=https://polygon-mumbai.g.alchemy.com/v2/${ALCHEMY_API_KEY}
 
 # API Keys for verification
 ETHERSCAN_API_KEY=your_key
 BSCSCAN_API_KEY=your_key
 POLYGONSCAN_API_KEY=your_key
 ```
+
+📖 **For detailed API key setup, see [API_KEYS.md](API_KEYS.md)**
 
 ## Contract Verification
 

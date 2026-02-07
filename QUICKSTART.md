@@ -29,8 +29,14 @@ npm install
 cp .env.example .env
 
 # Edit .env with your configuration
-# Add your private key and RPC URLs
+# Add your private key, RPC provider API keys, and block explorer keys
 ```
+
+**Important:** You'll need API keys for:
+- **Alchemy** or **Infura** - For RPC access to blockchains
+- **Etherscan/BSCScan/PolygonScan** - For contract verification
+
+📖 **See [API Keys Guide](API_KEYS.md) for detailed instructions on obtaining all required API keys.**
 
 ### 2. Choose Your Network
 

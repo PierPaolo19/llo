@@ -96,12 +96,17 @@ npm run deploy:sepolia
 
 ### Network Configuration
 
-Before deploying, configure your `.env` file:
+Before deploying, configure your `.env` file with API keys:
 
 ```bash
 cp .env.example .env
-# Edit .env with your network RPC URLs and private key
+# Edit .env with your network RPC URLs, private key, and API keys
 ```
+
+**Need API Keys?** See the [API Keys Guide](API_KEYS.md) for detailed instructions on obtaining:
+- Alchemy/Infura API keys (RPC providers)
+- Etherscan/BSCScan/PolygonScan API keys (contract verification)
+- Optional: CoinMarketCap, Moralis, The Graph, and more
 
 See [Network Guide](NETWORK_GUIDE.md) for complete setup instructions for each network.
 
@@ -279,6 +284,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📚 Documentation
 
+- **[API Keys Guide](API_KEYS.md)** - Complete guide to obtaining and configuring all API keys
 - **[Network Guide](NETWORK_GUIDE.md)** - Complete multi-chain deployment guide (ERC20, BEP20, TRC20)
 - **[Desktop Usage Guide](DESKTOP_GUIDE.md)** - Complete guide for using this project on your desktop (includes Bengali/বাংলা version)
 - **[Quick Start](QUICKSTART.md)** - Get started in 5 minutes
