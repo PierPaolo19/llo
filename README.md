@@ -31,12 +31,20 @@ See [Network Documentation](docs/NETWORKS.md) for detailed network information.
 - **Gas optimized**: Built with efficiency in mind for all supported chains
 - **Well-tested**: Comprehensive test suite included
 - **Desktop Application**: User-friendly GUI for managing flash loans across networks
+- **Windows 10 Pro optimized**: Full support with detailed setup guide and installers
 
 ## 📋 Prerequisites
 
+### For Smart Contract Development
 - Node.js (v18 or higher)
 - npm or yarn
 - Hardhat
+
+### For Desktop Application
+- **Windows 10 Pro / Home / Enterprise** (Version 1903+) - [Windows Setup Guide](docs/WINDOWS.md)
+- **macOS 10.10+** - Intel or Apple Silicon
+- **Linux** - Ubuntu 18.04+ / Debian 10+
+- MetaMask or Web3-compatible wallet browser extension
 
 ## 🔧 Installation
 
@@ -101,6 +109,34 @@ The desktop app provides:
 - 🔄 Easy network switching
 
 **For detailed desktop usage instructions, see [Desktop Documentation](docs/DESKTOP.md)**
+
+**For Windows 10 Pro users, see [Windows Setup Guide](docs/WINDOWS.md)**
+
+### Desktop Application Installation
+
+#### Windows 10 Pro
+```powershell
+# Quick setup (PowerShell)
+.\scripts\setup-windows.ps1
+
+# Or use batch script
+.\scripts\setup-windows.bat
+
+# Run application
+npm run desktop
+```
+
+See [Windows 10 Pro Guide](docs/WINDOWS.md) for detailed installation instructions, including:
+- NSIS installer setup
+- Portable version usage
+- Windows Defender configuration
+- Troubleshooting
+
+#### macOS / Linux
+```bash
+npm install
+npm run desktop
+```
 
 ### Deploy to Different Networks
 
@@ -295,6 +331,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Network Guide](docs/NETWORKS.md) - Multi-chain support (ERC20, BEP20, TRC20)
 - [Tron Deployment](docs/TRON.md) - TRC20 deployment instructions
 - [Desktop Application Guide](docs/DESKTOP.md) - How to use the desktop app
+- [Windows 10 Pro Guide](docs/WINDOWS.md) - Windows installation and troubleshooting
 - [Getting Started](docs/GETTING_STARTED.md) - Complete setup guide
 - [Technical Documentation](docs/TECHNICAL.md) - Technical specifications
 

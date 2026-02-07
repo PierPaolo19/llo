@@ -51,7 +51,7 @@ The built applications will be in the `dist/` directory.
 
 ### 1. Launch the Application
 
-- **Windows**: Double-click `Flash USDT.exe`
+- **Windows**: Double-click `Flash USDT.exe` (see [Windows 10 Pro Guide](WINDOWS.md) for detailed setup)
 - **macOS**: Open `Flash USDT.app`
 - **Linux**: Run `./Flash USDT.AppImage`
 
@@ -59,6 +59,8 @@ Or from source:
 ```bash
 npm run desktop
 ```
+
+**Windows users**: For installation help, troubleshooting, and Windows-specific features, see the [Windows 10 Pro Installation Guide](WINDOWS.md).
 
 ### 2. Connect Your Wallet
 

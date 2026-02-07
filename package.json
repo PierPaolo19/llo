@@ -46,14 +46,48 @@
       "artifacts/**/*"
     ],
     "mac": {
-      "category": "public.app-category.finance"
+      "category": "public.app-category.finance",
+      "icon": "desktop/assets/icon.icns",
+      "target": ["dmg", "zip"]
     },
     "win": {
-      "target": "nsis"
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64", "ia32"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "desktop/assets/icon.ico",
+      "publisherName": "Flash USDT",
+      "verifyUpdateCodeSignature": false,
+      "requestedExecutionLevel": "asInvoker",
+      "certificateFile": null,
+      "certificatePassword": null
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Flash USDT",
+      "installerIcon": "desktop/assets/icon.ico",
+      "uninstallerIcon": "desktop/assets/icon.ico",
+      "license": "LICENSE",
+      "warningsAsErrors": false,
+      "runAfterFinish": true,
+      "menuCategory": true
     },
     "linux": {
-      "target": "AppImage",
-      "category": "Finance"
+      "target": ["AppImage", "deb"],
+      "category": "Finance",
+      "icon": "desktop/assets/icon.png"
+    },
+    "portable": {
+      "artifactName": "FlashUSDT-${version}-portable.exe"
     }
   }
 }

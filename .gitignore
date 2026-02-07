@@ -27,6 +27,14 @@ lib/
 # OS
 .DS_Store
 Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Windows
+*.lnk
+*.stackdump
+ehthumbs.db
+[Dd]esktop.ini
 
 # Coverage reports
 coverage/
