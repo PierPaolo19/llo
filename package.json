@@ -64,9 +64,7 @@
       "icon": "desktop/assets/icon.ico",
       "publisherName": "Flash USDT",
       "verifyUpdateCodeSignature": false,
-      "requestedExecutionLevel": "asInvoker",
-      "certificateFile": null,
-      "certificatePassword": null
+      "requestedExecutionLevel": "asInvoker"
     },
     "nsis": {
       "oneClick": false,
@@ -77,7 +75,6 @@
       "installerIcon": "desktop/assets/icon.ico",
       "uninstallerIcon": "desktop/assets/icon.ico",
       "license": "LICENSE",
-      "warningsAsErrors": false,
       "runAfterFinish": true,
       "menuCategory": true
     },

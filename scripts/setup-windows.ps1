@@ -34,7 +34,10 @@ try {
     $nodeVersion = node --version
     Write-Host "Node.js: $nodeVersion"
     
-    $majorVersion = [int]($nodeVersion.Substring(1).Split('.')[0])
+    # Handle both with and without 'v' prefix
+    $versionNumber = $nodeVersion.TrimStart('v')
+    $majorVersion = [int]($versionNumber.Split('.')[0])
+    
     if ($majorVersion -lt 18) {
         Write-Host "WARNING: Node.js 18+ recommended (you have v$majorVersion)" -ForegroundColor Yellow
         Write-Host "Download from: https://nodejs.org" -ForegroundColor Yellow
