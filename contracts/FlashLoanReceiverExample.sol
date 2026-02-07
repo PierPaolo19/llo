@@ -3,6 +3,7 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "./IFlashLoanReceiver.sol";
 
 /**
@@ -10,7 +11,7 @@ import "./IFlashLoanReceiver.sol";
  * @notice Example implementation of a flash loan receiver
  * @dev This is a basic example showing how to receive and repay a flash loan
  */
-contract FlashLoanReceiverExample is IFlashLoanReceiver {
+contract FlashLoanReceiverExample is IFlashLoanReceiver, Ownable {
     using SafeERC20 for IERC20;
 
     address public immutable flashLoanProvider;
@@ -26,7 +27,7 @@ contract FlashLoanReceiverExample is IFlashLoanReceiver {
      * @notice Constructor
      * @param _flashLoanProvider The address of the flash loan provider
      */
-    constructor(address _flashLoanProvider) {
+    constructor(address _flashLoanProvider) Ownable(msg.sender) {
         require(_flashLoanProvider != address(0), "Invalid provider address");
         flashLoanProvider = _flashLoanProvider;
     }
@@ -82,7 +83,7 @@ contract FlashLoanReceiverExample is IFlashLoanReceiver {
      * @param token The token address
      * @param amount The amount to withdraw
      */
-    function withdrawToken(address token, uint256 amount) external {
+    function withdrawToken(address token, uint256 amount) external onlyOwner {
         IERC20(token).safeTransfer(msg.sender, amount);
     }
 
