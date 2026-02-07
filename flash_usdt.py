@@ -15,18 +15,59 @@ from datetime import datetime
 from typing import Dict, List, Optional
 
 
+# Supported blockchain networks for USDT
+SUPPORTED_NETWORKS = {
+    "TRC20": {
+        "name": "TRON (TRC20)",
+        "address_prefix": "T",
+        "address_length": 34,
+        "explorer": "https://tronscan.org/#/transaction/"
+    },
+    "ERC20": {
+        "name": "Ethereum (ERC20)",
+        "address_prefix": "0x",
+        "address_length": 42,
+        "explorer": "https://etherscan.io/tx/"
+    },
+    "BEP20": {
+        "name": "Binance Smart Chain (BEP20)",
+        "address_prefix": "0x",
+        "address_length": 42,
+        "explorer": "https://bscscan.com/tx/"
+    }
+}
+
+
 class FlashUSDT:
-    """A class to handle flash USDT operations."""
+    """A class to handle flash USDT operations across multiple networks."""
     
-    def __init__(self, initial_balance: float = 0.0):
+    def __init__(self, initial_balance: float = 0.0, network: str = "ERC20"):
         """
         Initialize FlashUSDT instance.
         
         Args:
             initial_balance: Starting USDT balance
+            network: Blockchain network (TRC20, ERC20, or BEP20)
         """
+        if network not in SUPPORTED_NETWORKS:
+            raise ValueError(f"Unsupported network. Choose from: {', '.join(SUPPORTED_NETWORKS.keys())}")
+        
         self.balance = initial_balance
+        self.network = network
         self.transactions: List[Dict] = []
+    
+    def get_network_info(self) -> Dict:
+        """
+        Get current network information.
+        
+        Returns:
+            Network details
+        """
+        return {
+            "network": self.network,
+            "name": SUPPORTED_NETWORKS[self.network]["name"],
+            "explorer": SUPPORTED_NETWORKS[self.network]["explorer"]
+        }
     
     def check_balance(self) -> float:
         """
@@ -55,6 +96,7 @@ class FlashUSDT:
             "type": "flash",
             "amount": amount,
             "balance": self.balance,
+            "network": self.network,
             "timestamp": datetime.now().isoformat(),
             "tx_hash": self._generate_tx_hash()
         }
@@ -84,6 +126,7 @@ class FlashUSDT:
             "amount": amount,
             "recipient": recipient,
             "balance": self.balance,
+            "network": self.network,
             "timestamp": datetime.now().isoformat(),
             "tx_hash": self._generate_tx_hash()
         }
@@ -101,17 +144,29 @@ class FlashUSDT:
     
     def _generate_tx_hash(self) -> str:
         """
-        Generate a simulated transaction hash.
+        Generate a simulated transaction hash for the current network.
         
         Returns:
             Simulated transaction hash
         """
-        return "0x" + secrets.token_hex(32)
+        if self.network == "TRC20":
+            # TRON transaction hashes are 64 hex characters without 0x prefix
+            return secrets.token_hex(32)
+        else:
+            # ERC20 and BEP20 use Ethereum-style 0x-prefixed hashes
+            return "0x" + secrets.token_hex(32)
 
 
 def main():
     """Main function to run the Flash USDT script."""
-    parser = argparse.ArgumentParser(description="Flash USDT Script")
+    parser = argparse.ArgumentParser(description="Flash USDT Script - Multi-Network Support")
+    parser.add_argument(
+        "--network",
+        type=str,
+        default="ERC20",
+        choices=["TRC20", "ERC20", "BEP20"],
+        help="Blockchain network (default: ERC20)"
+    )
     parser.add_argument(
         "--balance",
         type=float,
@@ -142,10 +197,12 @@ def main():
     args = parser.parse_args()
     
     # Initialize FlashUSDT instance
-    flash_usdt = FlashUSDT(initial_balance=args.balance)
+    flash_usdt = FlashUSDT(initial_balance=args.balance, network=args.network)
+    network_info = flash_usdt.get_network_info()
     
     print(f"Flash USDT Script")
     print(f"=" * 50)
+    print(f"Network: {network_info['name']}")
     print(f"Initial Balance: {flash_usdt.check_balance()} USDT")
     print()
     
@@ -153,7 +210,7 @@ def main():
     if args.flash:
         try:
             tx = flash_usdt.flash(args.flash)
-            print(f"✓ Flashed {args.flash} USDT")
+            print(f"✓ Flashed {args.flash} USDT on {tx['network']}")
             print(f"  TX Hash: {tx['tx_hash']}")
             print(f"  New Balance: {tx['balance']} USDT")
             print()
@@ -169,7 +226,7 @@ def main():
         
         try:
             tx = flash_usdt.transfer(args.transfer, args.recipient)
-            print(f"✓ Transferred {args.transfer} USDT to {args.recipient}")
+            print(f"✓ Transferred {args.transfer} USDT to {args.recipient} on {tx['network']}")
             print(f"  TX Hash: {tx['tx_hash']}")
             print(f"  New Balance: {tx['balance']} USDT")
             print()
@@ -184,7 +241,7 @@ def main():
             print("Transaction History:")
             print("-" * 50)
             for i, tx in enumerate(transactions, 1):
-                print(f"{i}. {tx['type'].upper()}")
+                print(f"{i}. {tx['type'].upper()} ({tx['network']})")
                 print(f"   Amount: {tx['amount']} USDT")
                 if tx['type'] == 'transfer':
                     print(f"   Recipient: {tx['recipient']}")

@@ -4,7 +4,7 @@ Unit tests for Flash USDT script.
 """
 
 import unittest
-from flash_usdt import FlashUSDT
+from flash_usdt import FlashUSDT, SUPPORTED_NETWORKS
 
 
 class TestFlashUSDT(unittest.TestCase):
@@ -14,6 +14,63 @@ class TestFlashUSDT(unittest.TestCase):
         """Test initial balance is set correctly."""
         flash_usdt = FlashUSDT(initial_balance=100.0)
         self.assertEqual(flash_usdt.check_balance(), 100.0)
+    
+    def test_default_network(self):
+        """Test that default network is ERC20."""
+        flash_usdt = FlashUSDT(initial_balance=0.0)
+        self.assertEqual(flash_usdt.network, "ERC20")
+    
+    def test_network_selection(self):
+        """Test network selection for all supported networks."""
+        for network in SUPPORTED_NETWORKS.keys():
+            flash_usdt = FlashUSDT(initial_balance=0.0, network=network)
+            self.assertEqual(flash_usdt.network, network)
+    
+    def test_invalid_network_raises_error(self):
+        """Test that invalid network raises ValueError."""
+        with self.assertRaises(ValueError):
+            FlashUSDT(initial_balance=0.0, network="INVALID")
+    
+    def test_get_network_info(self):
+        """Test network info retrieval."""
+        flash_usdt = FlashUSDT(initial_balance=0.0, network="TRC20")
+        network_info = flash_usdt.get_network_info()
+        self.assertEqual(network_info['network'], "TRC20")
+        self.assertEqual(network_info['name'], "TRON (TRC20)")
+        self.assertIn('explorer', network_info)
+    
+    def test_transaction_includes_network(self):
+        """Test that transactions include network information."""
+        flash_usdt = FlashUSDT(initial_balance=0.0, network="BEP20")
+        tx = flash_usdt.flash(100.0)
+        self.assertEqual(tx['network'], "BEP20")
+        
+        tx2 = flash_usdt.transfer(50.0, "0xRecipient")
+        self.assertEqual(tx2['network'], "BEP20")
+    
+    def test_trc20_tx_hash_format(self):
+        """Test that TRC20 transaction hashes don't have 0x prefix."""
+        flash_usdt = FlashUSDT(initial_balance=0.0, network="TRC20")
+        tx = flash_usdt.flash(100.0)
+        self.assertIn('tx_hash', tx)
+        self.assertFalse(tx['tx_hash'].startswith('0x'))
+        self.assertEqual(len(tx['tx_hash']), 64)  # 64 hex chars without 0x
+    
+    def test_erc20_tx_hash_format(self):
+        """Test that ERC20 transaction hashes have 0x prefix."""
+        flash_usdt = FlashUSDT(initial_balance=0.0, network="ERC20")
+        tx = flash_usdt.flash(100.0)
+        self.assertIn('tx_hash', tx)
+        self.assertTrue(tx['tx_hash'].startswith('0x'))
+        self.assertEqual(len(tx['tx_hash']), 66)  # 0x + 64 hex chars
+    
+    def test_bep20_tx_hash_format(self):
+        """Test that BEP20 transaction hashes have 0x prefix."""
+        flash_usdt = FlashUSDT(initial_balance=0.0, network="BEP20")
+        tx = flash_usdt.flash(100.0)
+        self.assertIn('tx_hash', tx)
+        self.assertTrue(tx['tx_hash'].startswith('0x'))
+        self.assertEqual(len(tx['tx_hash']), 66)  # 0x + 64 hex chars
     
     def test_flash_adds_balance(self):
         """Test that flash adds to balance."""
