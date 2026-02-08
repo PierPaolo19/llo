@@ -1,0 +1,21 @@
+{
+  "name": "flash-usdt-script",
+  "version": "1.0.0",
+  "description": "Flash loan script for USDT operations",
+  "main": "flash-usdt.js",
+  "scripts": {
+    "start": "node flash-usdt.js"
+  },
+  "keywords": [
+    "flash-loan",
+    "usdt",
+    "defi",
+    "cryptocurrency",
+    "arbitrage"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
