@@ -133,9 +133,20 @@ class FlashUSDTLoan {
      */
     generateMockAddress() {
         if (this.network === 'TRC20') {
-            return 'T' + 'x'.repeat(33); // Tron address format
+            // Tron address format: T + 33 base58 characters
+            const chars = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+            let addr = 'T';
+            for (let i = 0; i < 33; i++) {
+                addr += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return addr;
         } else {
-            return '0x' + 'f'.repeat(40); // Ethereum/BSC address format
+            // Ethereum/BSC address format: 0x + 40 hex characters
+            let addr = '0x';
+            for (let i = 0; i < 40; i++) {
+                addr += Math.floor(Math.random() * 16).toString(16);
+            }
+            return addr;
         }
     }
     
@@ -335,7 +346,14 @@ function displayWalletInfo(walletType) {
     const wallet = WALLETS[walletType];
     console.log(`\n${wallet.icon} ${wallet.name}`);
     console.log(`   Type: ${wallet.type}`);
-    console.log(`   Networks: ${wallet.supportedNetworks.map(n => NETWORKS[n].icon + ' ' + n).join(', ')}`);
+    
+    // Build network list with validation
+    const networkList = wallet.supportedNetworks
+        .filter(n => NETWORKS[n]) // Only include valid networks
+        .map(n => NETWORKS[n].icon + ' ' + n)
+        .join(', ');
+    console.log(`   Networks: ${networkList}`);
+    
     console.log(`   Features:`);
     wallet.features.forEach(feature => console.log(`      • ${feature}`));
     console.log(`   Website: ${wallet.website}`);
@@ -370,21 +388,22 @@ function displayCompatibilityMatrix() {
     console.log('╚═══════════════════════════════════════════════════════════╝\n');
     
     // Header
-    console.log('Wallet              │ TRC20  │ ERC20  │ BEP20  │');
-    console.log('────────────────────┼────────┼────────┼────────┤');
+    console.log('Wallet                 │ TRC20  │ ERC20  │ BEP20  │');
+    console.log('───────────────────────┼────────┼────────┼────────┤');
     
-    // Rows
+    // Rows - using fixed width to accommodate emoji + name
     Object.keys(WALLETS).forEach(walletType => {
         const wallet = WALLETS[walletType];
         const trc20 = wallet.supportedNetworks.includes('TRC20') ? '  ✅  ' : '  ❌  ';
         const erc20 = wallet.supportedNetworks.includes('ERC20') ? '  ✅  ' : '  ❌  ';
         const bep20 = wallet.supportedNetworks.includes('BEP20') ? '  ✅  ' : '  ❌  ';
         
-        const walletName = (wallet.icon + ' ' + wallet.name).padEnd(18);
+        // Use fixed width of 21 to handle emoji properly
+        const walletName = (wallet.icon + ' ' + wallet.name).padEnd(21);
         console.log(`${walletName} │ ${trc20}│ ${erc20}│ ${bep20}│`);
     });
     
-    console.log('────────────────────┴────────┴────────┴────────┘\n');
+    console.log('───────────────────────┴────────┴────────┴────────┘\n');
 }
 
 /**
