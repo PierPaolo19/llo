@@ -14,7 +14,7 @@
 class FlashUSDTLoan {
     constructor(config = {}) {
         this.loanAmount = config.loanAmount || 10000; // Default 10,000 USDT
-        this.fee = config.fee || 0.09; // 0.09% fee (typical for flash loans)
+        this.fee = config.fee || 0.09; // 0.09 percentage points (9 basis points, typical for flash loans)
         this.profitTarget = config.profitTarget || 100; // Minimum profit in USDT
     }
 

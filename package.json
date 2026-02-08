@@ -4,8 +4,7 @@
   "description": "Flash loan script for USDT operations",
   "main": "flash-usdt.js",
   "scripts": {
-    "start": "node flash-usdt.js",
-    "test": "node flash-usdt.js"
+    "start": "node flash-usdt.js"
   },
   "keywords": [
     "flash-loan",
