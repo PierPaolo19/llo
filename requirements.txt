@@ -1,0 +1,3 @@
+# Flash USDT Script Dependencies
+# No external dependencies required - uses only Python standard library
+# Tested with Python 3.7+
