@@ -6,6 +6,101 @@ Flash USDT Script - A utility for simulating USDT operations.
 
 **This is a simulation tool for educational purposes only.** This script does NOT interact with real blockchains, cryptocurrency networks, or actual USDT tokens. All operations are simulated in memory and have no real-world financial impact. Do not use this for actual cryptocurrency transactions.
 
+## Quick Start Guide
+
+### Installation & Setup
+
+1. **Prerequisites**: Python 3.6 or higher (no external dependencies required)
+
+2. **Download the script**:
+   ```bash
+   git clone https://github.com/PierPaolo19/llo.git
+   cd llo
+   ```
+
+3. **Make it executable** (optional):
+   ```bash
+   chmod +x flash_usdt.py
+   ```
+
+### Your First Commands
+
+#### 1. Check System Status
+Get an overview of available networks and wallets:
+```bash
+python flash_usdt.py --check-all
+```
+
+#### 2. Simple Flash Operation
+Add 1000 USDT to your balance on Ethereum:
+```bash
+python flash_usdt.py --flash 1000
+```
+
+#### 3. Use with a Wallet
+Flash USDT using MetaMask on Ethereum:
+```bash
+python flash_usdt.py --wallet metamask --flash 500
+```
+
+#### 4. Transfer USDT
+Transfer tokens to another address:
+```bash
+python flash_usdt.py --balance 1000 --transfer 100 --recipient 0x1234567890abcdef
+```
+
+#### 5. View Full Transaction History
+See all your operations:
+```bash
+python flash_usdt.py --balance 1000 --flash 500 --transfer 200 --recipient 0xABCD --history
+```
+
+### Common Use Cases
+
+**Scenario 1: Testing on Different Networks**
+```bash
+# Ethereum (ERC20) - default
+python flash_usdt.py --flash 1000
+
+# TRON (TRC20)
+python flash_usdt.py --network TRC20 --flash 1000
+
+# Binance Smart Chain (BEP20)
+python flash_usdt.py --network BEP20 --flash 1000
+```
+
+**Scenario 2: Testing Different Wallets**
+```bash
+# MetaMask
+python flash_usdt.py --wallet metamask --flash 500
+
+# WalletConnect
+python flash_usdt.py --wallet walletconnect --flash 500
+
+# Trust Wallet (supports all networks)
+python flash_usdt.py --network TRC20 --wallet trust --flash 500
+```
+
+**Scenario 3: Full Workflow Test**
+```bash
+python flash_usdt.py \
+  --network ERC20 \
+  --wallet metamask \
+  --balance 1000 \
+  --flash 2000 \
+  --transfer 500 \
+  --recipient 0xYourAddress \
+  --history
+```
+
+### Need Help?
+
+- Run `python flash_usdt.py --help` to see all available options
+- Check the [Wallet-Network Compatibility Matrix](#wallet-network-compatibility-matrix) below
+- See detailed [Examples](#examples) section for more use cases
+
+---
+
 ## Features
 
 - **Multi-Network Support**: TRC20 (TRON), ERC20 (Ethereum), BEP20 (Binance Smart Chain)
@@ -311,6 +406,37 @@ $ python flash_usdt.py --network BEP20 --wallet rainbow --balance 0 --flash 1000
 | **Coinbase Wallet** | ❌ | ✅ | ✅ | Web3 |
 | **Phantom** | ❌ | ✅ | ✅ | Web3 |
 | **Rainbow** | ❌ | ✅ | ❌ | Web3 |
+
+## Troubleshooting
+
+### Common Issues
+
+**Issue: "Does not support [network]" error**
+- **Solution**: Check the compatibility matrix above. Some wallets only support specific networks.
+- **Example**: Rainbow only works with ERC20, not BEP20 or TRC20.
+
+**Issue: "Amount must be positive" error**
+- **Solution**: Use positive numbers for `--flash` and `--transfer` amounts.
+- **Example**: `--flash 100` (not `--flash -100`)
+
+**Issue: "Insufficient balance" error**
+- **Solution**: Your balance is too low for the transfer. Increase `--balance` or reduce `--transfer` amount.
+- **Example**: If balance is 50, you cannot transfer 100.
+
+**Issue: "Recipient required for transfer" error**
+- **Solution**: When using `--transfer`, you must provide `--recipient` address.
+- **Example**: `--transfer 50 --recipient 0x1234567890abcdef`
+
+**Issue: Script doesn't run**
+- **Solution**: Ensure Python 3.6+ is installed: `python3 --version`
+- **Solution**: Try `python3 flash_usdt.py` instead of `python flash_usdt.py`
+
+### Getting More Help
+
+1. Run `python flash_usdt.py --help` for command-line options
+2. Use `--check-all` to verify your system configuration
+3. Check the examples in this README for correct syntax
+4. Ensure you're using compatible wallet-network combinations
 
 ## Requirements
 
