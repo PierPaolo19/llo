@@ -156,6 +156,46 @@ class FlashUSDT:
         """
         return self.balance
     
+    def check_all(self) -> Dict:
+        """
+        Perform comprehensive system check.
+        
+        Returns:
+            Dictionary with all system information
+        """
+        network_info = self.get_network_info()
+        wallet_info = self.get_wallet_info()
+        
+        check_result = {
+            "status": "OK",
+            "timestamp": datetime.now().isoformat(),
+            "network": {
+                "current": self.network,
+                "name": network_info["name"],
+                "explorer": network_info["explorer"],
+                "all_networks": list(SUPPORTED_NETWORKS.keys())
+            },
+            "wallet": {
+                "current": self.wallet if self.wallet else "None",
+                "name": wallet_info["name"] if wallet_info else "None",
+                "all_wallets": list(SUPPORTED_WALLETS.keys())
+            },
+            "balance": {
+                "current": self.balance,
+                "currency": "USDT"
+            },
+            "transactions": {
+                "count": len(self.transactions),
+                "history": self.transactions
+            },
+            "configuration": {
+                "networks_available": len(SUPPORTED_NETWORKS),
+                "wallets_available": len(SUPPORTED_WALLETS)
+            }
+        }
+        
+        return check_result
+    
     def flash(self, amount: float) -> Dict:
         """
         Flash (instantly add) USDT to the balance.
@@ -279,6 +319,11 @@ def main():
         action="store_true",
         help="Show transaction history"
     )
+    parser.add_argument(
+        "--check-all",
+        action="store_true",
+        help="Perform comprehensive system check"
+    )
     
     args = parser.parse_args()
     
@@ -299,6 +344,41 @@ def main():
         print(f"Wallet: {wallet_info['name']}")
     print(f"Initial Balance: {flash_usdt.check_balance()} USDT")
     print()
+    
+    # Perform comprehensive check if requested
+    if args.check_all:
+        check_result = flash_usdt.check_all()
+        print("System Check Results:")
+        print("=" * 50)
+        print(f"Status: {check_result['status']}")
+        print(f"Timestamp: {check_result['timestamp']}")
+        print()
+        
+        print("Network Information:")
+        print(f"  Current Network: {check_result['network']['name']} ({check_result['network']['current']})")
+        print(f"  Explorer: {check_result['network']['explorer']}")
+        print(f"  Available Networks: {', '.join(check_result['network']['all_networks'])}")
+        print()
+        
+        print("Wallet Information:")
+        print(f"  Current Wallet: {check_result['wallet']['name']}")
+        print(f"  Available Wallets: {', '.join(check_result['wallet']['all_wallets'])}")
+        print()
+        
+        print("Balance Information:")
+        print(f"  Current Balance: {check_result['balance']['current']} {check_result['balance']['currency']}")
+        print()
+        
+        print("Transaction Information:")
+        print(f"  Total Transactions: {check_result['transactions']['count']}")
+        print()
+        
+        print("Configuration:")
+        print(f"  Networks Configured: {check_result['configuration']['networks_available']}")
+        print(f"  Wallets Configured: {check_result['configuration']['wallets_available']}")
+        print()
+        
+        return 0
     
     # Flash USDT if requested
     if args.flash:

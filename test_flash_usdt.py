@@ -281,6 +281,65 @@ class TestFlashUSDT(unittest.TestCase):
         tx2 = flash_usdt.transfer(50.0, "0xRecipient")
         self.assertEqual(tx2['wallet'], "walletconnect")
         self.assertEqual(tx2['network'], "ERC20")
+    
+    def test_check_all_returns_dict(self):
+        """Test that check_all returns a dictionary."""
+        flash_usdt = FlashUSDT(initial_balance=100.0, network="ERC20")
+        result = flash_usdt.check_all()
+        self.assertIsInstance(result, dict)
+    
+    def test_check_all_has_required_keys(self):
+        """Test that check_all returns all required keys."""
+        flash_usdt = FlashUSDT(initial_balance=200.0, network="BEP20", wallet="binance")
+        result = flash_usdt.check_all()
+        
+        required_keys = ["status", "timestamp", "network", "wallet", "balance", "transactions", "configuration"]
+        for key in required_keys:
+            self.assertIn(key, result)
+    
+    def test_check_all_network_info(self):
+        """Test that check_all returns correct network information."""
+        flash_usdt = FlashUSDT(initial_balance=0.0, network="TRC20")
+        result = flash_usdt.check_all()
+        
+        self.assertEqual(result['network']['current'], "TRC20")
+        self.assertIn("TRC20", result['network']['all_networks'])
+        self.assertIn("ERC20", result['network']['all_networks'])
+        self.assertIn("BEP20", result['network']['all_networks'])
+    
+    def test_check_all_wallet_info(self):
+        """Test that check_all returns correct wallet information."""
+        flash_usdt = FlashUSDT(initial_balance=0.0, network="ERC20", wallet="metamask")
+        result = flash_usdt.check_all()
+        
+        self.assertEqual(result['wallet']['current'], "metamask")
+        self.assertEqual(result['wallet']['name'], "MetaMask")
+        self.assertIn("metamask", result['wallet']['all_wallets'])
+    
+    def test_check_all_balance_info(self):
+        """Test that check_all returns correct balance information."""
+        flash_usdt = FlashUSDT(initial_balance=500.0, network="ERC20")
+        result = flash_usdt.check_all()
+        
+        self.assertEqual(result['balance']['current'], 500.0)
+        self.assertEqual(result['balance']['currency'], "USDT")
+    
+    def test_check_all_transaction_count(self):
+        """Test that check_all tracks transaction count."""
+        flash_usdt = FlashUSDT(initial_balance=1000.0, network="ERC20")
+        flash_usdt.flash(100.0)
+        flash_usdt.transfer(50.0, "0xRecipient")
+        
+        result = flash_usdt.check_all()
+        self.assertEqual(result['transactions']['count'], 2)
+    
+    def test_check_all_configuration(self):
+        """Test that check_all returns correct configuration."""
+        flash_usdt = FlashUSDT(initial_balance=0.0, network="ERC20")
+        result = flash_usdt.check_all()
+        
+        self.assertEqual(result['configuration']['networks_available'], 3)
+        self.assertEqual(result['configuration']['wallets_available'], 7)
 
 
 if __name__ == '__main__':

@@ -13,6 +13,7 @@ Flash USDT Script - A utility for simulating USDT operations.
   - Centralized: Binance Wallet
   - Decentralized: Trust Wallet
   - Web3: MetaMask, WalletConnect, Coinbase Wallet, Phantom, Rainbow
+- **Comprehensive System Check**: Check all configurations, balances, and transactions at once
 - Flash (instantly add) USDT to your balance
 - Transfer USDT to recipients
 - View transaction history with network and wallet information
@@ -107,10 +108,78 @@ python flash_usdt.py --network TRC20 --wallet trust --balance 100.0 --flash 50.0
 - `--transfer`: Amount of USDT to transfer
 - `--recipient`: Recipient address for transfer (required with --transfer)
 - `--history`: Show transaction history
+- `--check-all`: Perform comprehensive system check
 
 ## Examples
 
-### Example 1: Flash USDT with MetaMask on ERC20
+### Example 1: Comprehensive System Check
+```bash
+$ python flash_usdt.py --check-all
+Flash USDT Script
+==================================================
+Network: Ethereum (ERC20)
+Initial Balance: 0.0 USDT
+
+System Check Results:
+==================================================
+Status: OK
+Timestamp: 2026-02-08T00:11:25.628858
+
+Network Information:
+  Current Network: Ethereum (ERC20) (ERC20)
+  Explorer: https://etherscan.io/tx/
+  Available Networks: TRC20, ERC20, BEP20
+
+Wallet Information:
+  Current Wallet: None
+  Available Wallets: binance, trust, metamask, walletconnect, coinbase, phantom, rainbow
+
+Balance Information:
+  Current Balance: 0.0 USDT
+
+Transaction Information:
+  Total Transactions: 0
+
+Configuration:
+  Networks Configured: 3
+  Wallets Configured: 7
+```
+
+### Example 2: System Check with Specific Network and Wallet
+```bash
+$ python flash_usdt.py --network TRC20 --wallet walletconnect --balance 1000 --check-all
+Flash USDT Script
+==================================================
+Network: TRON (TRC20)
+Wallet: WalletConnect
+Initial Balance: 1000.0 USDT
+
+System Check Results:
+==================================================
+Status: OK
+Timestamp: 2026-02-08T00:11:31.784959
+
+Network Information:
+  Current Network: TRON (TRC20) (TRC20)
+  Explorer: https://tronscan.org/#/transaction/
+  Available Networks: TRC20, ERC20, BEP20
+
+Wallet Information:
+  Current Wallet: WalletConnect
+  Available Wallets: binance, trust, metamask, walletconnect, coinbase, phantom, rainbow
+
+Balance Information:
+  Current Balance: 1000.0 USDT
+
+Transaction Information:
+  Total Transactions: 0
+
+Configuration:
+  Networks Configured: 3
+  Wallets Configured: 7
+```
+
+### Example 3: Flash USDT with MetaMask on ERC20
 ```bash
 $ python flash_usdt.py --network ERC20 --wallet metamask --balance 0 --flash 1000.0
 Flash USDT Script
@@ -126,7 +195,7 @@ Initial Balance: 0.0 USDT
 Final Balance: 1000.0 USDT
 ```
 
-### Example 2: Flash USDT with Binance Wallet on BEP20
+### Example 4: Flash USDT with Binance Wallet on BEP20
 ```bash
 $ python flash_usdt.py --network BEP20 --wallet binance --balance 0 --flash 2000.0
 Flash USDT Script
@@ -193,7 +262,7 @@ Transaction History:
 Final Balance: 300.0 USDT
 ```
 
-### Example 5: Web3 Wallet with WalletConnect on TRC20
+### Example 7: Web3 Wallet with WalletConnect on TRC20
 ```bash
 $ python flash_usdt.py --network TRC20 --wallet walletconnect --balance 0 --flash 1000.0
 Flash USDT Script
@@ -209,7 +278,7 @@ Initial Balance: 0.0 USDT
 Final Balance: 1000.0 USDT
 ```
 
-### Example 6: Web3 Wallet with Coinbase Wallet on ERC20
+### Example 8: Web3 Wallet with Coinbase Wallet on ERC20
 ```bash
 $ python flash_usdt.py --network ERC20 --wallet coinbase --balance 0 --flash 2000.0
 Flash USDT Script
@@ -225,7 +294,7 @@ Initial Balance: 0.0 USDT
 Final Balance: 2000.0 USDT
 ```
 
-### Example 7: Web3 Wallet Compatibility Check
+### Example 9: Web3 Wallet Compatibility Check
 ```bash
 $ python flash_usdt.py --network BEP20 --wallet rainbow --balance 0 --flash 1000.0
 ✗ Error: Rainbow does not support BEP20. Supported networks: ERC20
