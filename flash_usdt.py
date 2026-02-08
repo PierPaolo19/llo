@@ -9,7 +9,6 @@ A utility script for simulating USDT (Tether) operations.
 """
 
 import argparse
-import json
 import secrets
 from datetime import datetime
 from typing import Dict, List, Optional
