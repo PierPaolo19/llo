@@ -2,7 +2,7 @@
 
 A demonstration script for flash loan operations with USDT (Tether USD) across multiple blockchain networks:
 - 🔷 **TRC20** (Tron Network)
-- ⟠ **ERC20** (Ethereum Network)  
+- ⟠ **ERC20** (Ethereum Network)
 - 🟡 **BEP20** (Binance Smart Chain)
 
 This script simulates the flash loan process including borrowing, executing arbitrage strategies, and repayment on different networks with their specific characteristics.

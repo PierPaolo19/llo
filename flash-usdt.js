@@ -213,9 +213,13 @@ class FlashUSDTLoan {
  * Compare flash loan opportunities across all networks
  */
 async function compareNetworks(loanAmount = 50000) {
+    const formattedAmount = loanAmount.toLocaleString();
+    const amountPadding = Math.max(0, 20 - formattedAmount.length);
+    const paddedAmount = formattedAmount + ' '.repeat(amountPadding);
+    
     console.log('\n╔═══════════════════════════════════════════════════════════╗');
     console.log('║        FLASH LOAN NETWORK COMPARISON                      ║');
-    console.log(`║        Loan Amount: ${loanAmount.toLocaleString()} USDT                           ║`);
+    console.log(`║        Loan Amount: ${paddedAmount} USDT${' '.repeat(11)}║`);
     console.log('╚═══════════════════════════════════════════════════════════╝\n');
     
     const results = [];
