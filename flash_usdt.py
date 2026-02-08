@@ -211,7 +211,7 @@ class USDTWallet:
         ).build_transaction({
             'from': self.account.address,
             'nonce': self.web3.eth.get_transaction_count(self.account.address),
-            'gas': 100000,
+            'gas': 150000,  # Increased for Ethereum USDT contract compatibility
             'gasPrice': self.web3.eth.gas_price,
         })
         

@@ -45,7 +45,7 @@ def main():
         
         try:
             total_usdt += float(info['usdt_balance'])
-        except:
+        except (ValueError, TypeError):
             pass
     
     print("\n" + "=" * 70)

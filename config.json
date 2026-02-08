@@ -33,11 +33,11 @@
   },
   "gas_settings": {
     "ethereum": {
-      "gas_limit": 100000,
+      "gas_limit": 150000,
       "priority": "medium"
     },
     "bsc": {
-      "gas_limit": 100000,
+      "gas_limit": 150000,
       "priority": "medium"
     },
     "tron": {
