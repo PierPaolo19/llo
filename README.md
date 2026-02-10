@@ -2,6 +2,14 @@
 
 A Python-based educational tool for interacting with USDT (Tether) tokens across multiple blockchain networks.
 
+**📖 Documentation Languages:**
+- [English](README.md) (you are here)
+- [বাংলা/Bengali](README.bn.md)
+
+**🚀 Quick Setup:**
+- [GitHub Setup Guide (Bengali)](GITHUB_SETUP.bn.md) - সহজ বাংলা গাইড
+- [Quick Start Guide](QUICKSTART.md)
+
 ## 🌐 Supported Networks
 
 - **Ethereum (ERC20)** - USDT on Ethereum Mainnet
