@@ -122,8 +122,9 @@ def test_balance_check():
     print("TEST 6: Balance Check (Read-Only)")
     print("="*70)
     
-    # Use a well-known public address (Bitfinex hot wallet)
-    test_address = "0x5754284f345afc66a98fbB0a0Afe71e0F007B949"
+    # Use a well-known public address for demonstration (Bitfinex hot wallet)
+    # Note: This is a public address used for testing purposes only
+    known_public_address = "0x5754284f345afc66a98fbB0a0Afe71e0F007B949"
     
     try:
         tool = USDTFlashTool()
@@ -132,11 +133,11 @@ def test_balance_check():
             print("⚠ Skipped - could not connect to Ethereum")
             return True
         
-        balance = tool.get_balance('ethereum', test_address)
+        balance = tool.get_balance('ethereum', known_public_address)
         
         if balance is not None:
             print(f"✓ Balance check successful:")
-            print(f"  - Address: {test_address}")
+            print(f"  - Address: {known_public_address}")
             print(f"  - Balance: {balance:.6f} USDT")
             return True
         else:

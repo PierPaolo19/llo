@@ -15,9 +15,10 @@ def example_check_balances():
     # Initialize the tool
     tool = USDTFlashTool()
     
-    # Example addresses (these are public addresses for demonstration)
+    # Example addresses (public wallet addresses for demonstration only)
+    # Note: These are real addresses on the blockchain. Balances may vary over time.
     test_addresses = {
-        'ethereum': '0x5754284f345afc66a98fbB0a0Afe71e0F007B949',  # Bitfinex wallet
+        'ethereum': '0x5754284f345afc66a98fbB0a0Afe71e0F007B949',  # Bitfinex hot wallet
         'bsc': '0x8894E0a0c962CB723c1976a4421c95949bE2D4E3',       # Example BSC address
         'tron': 'TQn9Y2khEsLJW1ChVWFMSMeRDow5KcbLSE'              # Example TRON address
     }

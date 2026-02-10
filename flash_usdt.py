@@ -15,19 +15,19 @@ from decimal import Decimal
 try:
     from web3 import Web3
     try:
-        # Try newer import path
-        from web3.middleware import ExtraDataToPOAMiddleware as geth_poa_middleware
+        # Try newer import path (web3.py 6.0+)
+        from web3.middleware import ExtraDataToPOAMiddleware as poa_middleware
     except ImportError:
         try:
-            # Try older import path
-            from web3.middleware import geth_poa_middleware
+            # Try older import path (web3.py < 6.0)
+            from web3.middleware import geth_poa_middleware as poa_middleware
         except ImportError:
             # No PoA middleware available
-            geth_poa_middleware = None
+            poa_middleware = None
     WEB3_AVAILABLE = True
 except ImportError:
     Web3 = None
-    geth_poa_middleware = None
+    poa_middleware = None
     WEB3_AVAILABLE = False
 
 try:
@@ -120,8 +120,11 @@ class USDTFlashTool:
                 w3 = Web3(Web3.HTTPProvider(config['rpc']))
                 
                 # Add PoA middleware for BSC if available
-                if network == 'bsc' and geth_poa_middleware is not None:
-                    w3.middleware_onion.inject(geth_poa_middleware, layer=0)
+                if network == 'bsc' and poa_middleware is not None:
+                    try:
+                        w3.middleware_onion.inject(poa_middleware, layer=0)
+                    except Exception as e:
+                        print(f"Warning: Could not inject PoA middleware: {str(e)}")
                 
                 if w3.is_connected():
                     self.web3_instances[network] = w3
