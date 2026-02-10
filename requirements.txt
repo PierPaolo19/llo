@@ -1,0 +1,10 @@
+# Multi-Network USDT Script Requirements
+
+# Web3 for Ethereum and BSC (ERC20/BEP20)
+web3>=6.0.0
+
+# TronPy for TRON network (TRC20)
+tronpy>=0.4.0
+
+# Additional utilities
+python-dotenv>=1.0.0
