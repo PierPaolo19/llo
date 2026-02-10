@@ -70,5 +70,7 @@ document.getElementById('toggleFlashBtn').addEventListener('click', toggleFlash)
 
 fetchUSDTPrice();
 
-document.getElementById('usdtPrice').classList.add('flash');
-document.getElementById('toggleFlashBtn').textContent = 'Disable Flash';
+if (flashEnabled) {
+    document.getElementById('usdtPrice').classList.add('flash');
+    document.getElementById('toggleFlashBtn').textContent = 'Disable Flash';
+}
