@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashing USDT Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Flashing USDT Tool</h1>
+        <div class="usdt-display">
+            <div class="usdt-price" id="usdtPrice">
+                <span class="label">USDT Price:</span>
+                <span class="value" id="priceValue">Loading...</span>
+            </div>
+            <div class="usdt-info">
+                <div class="info-item">
+                    <span class="label">24h Change:</span>
+                    <span class="value" id="changeValue">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Market Cap:</span>
+                    <span class="value" id="marketCapValue">-</span>
+                </div>
+            </div>
+        </div>
+        <div class="controls">
+            <button id="refreshBtn">Refresh</button>
+            <button id="toggleFlashBtn">Toggle Flash</button>
+        </div>
+        <div class="status" id="status"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
