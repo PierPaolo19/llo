@@ -1,16 +1,31 @@
 let flashEnabled = true;
+let lastFetchTime = 0;
 
 const DEMO_BASE_PRICE = 1.0000;
-const DEMO_PRICE_VARIANCE = 0.0001;
+const DEMO_PRICE_VARIANCE = 0.001;
 const DEMO_BASE_CHANGE = 0;
 const DEMO_CHANGE_VARIANCE = 0.2;
 const DEMO_BASE_MARKET_CAP = 95.5;
 const DEMO_MARKET_CAP_VARIANCE = 2;
+const BILLION = 1e9;
+const MIN_FETCH_INTERVAL_MS = 10000;
 
 async function fetchUSDTPrice() {
     const statusEl = document.getElementById('status');
+    
+    const now = Date.now();
+    const timeSinceLastFetch = now - lastFetchTime;
+    
+    if (timeSinceLastFetch < MIN_FETCH_INTERVAL_MS && lastFetchTime > 0) {
+        const remainingSeconds = Math.ceil((MIN_FETCH_INTERVAL_MS - timeSinceLastFetch) / 1000);
+        statusEl.textContent = `Please wait ${remainingSeconds} seconds before refreshing again`;
+        statusEl.className = 'status';
+        return;
+    }
+    
     statusEl.textContent = 'Fetching USDT data...';
     statusEl.className = 'status';
+    lastFetchTime = now;
 
     try {
         const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=usd&include_24hr_change=true&include_market_cap=true');
@@ -32,7 +47,7 @@ async function fetchUSDTPrice() {
             changeEl.textContent = `${change >= 0 ? '+' : ''}${change.toFixed(2)}%`;
             changeEl.style.color = change >= 0 ? '#27ae60' : '#e74c3c';
             
-            document.getElementById('marketCapValue').textContent = `$${(marketCap / 1000000000).toFixed(2)}B`;
+            document.getElementById('marketCapValue').textContent = `$${(marketCap / BILLION).toFixed(2)}B`;
 
             statusEl.textContent = 'Data updated successfully!';
             statusEl.className = 'status success';
