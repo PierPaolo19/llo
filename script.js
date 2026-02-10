@@ -52,25 +52,26 @@ async function fetchUSDTPrice() {
     }
 }
 
-function toggleFlash() {
-    flashEnabled = !flashEnabled;
+function applyFlashState() {
     const priceEl = document.getElementById('usdtPrice');
+    const btnEl = document.getElementById('toggleFlashBtn');
     
     if (flashEnabled) {
         priceEl.classList.add('flash');
-        document.getElementById('toggleFlashBtn').textContent = 'Disable Flash';
+        btnEl.textContent = 'Disable Flash';
     } else {
         priceEl.classList.remove('flash');
-        document.getElementById('toggleFlashBtn').textContent = 'Enable Flash';
+        btnEl.textContent = 'Enable Flash';
     }
+}
+
+function toggleFlash() {
+    flashEnabled = !flashEnabled;
+    applyFlashState();
 }
 
 document.getElementById('refreshBtn').addEventListener('click', fetchUSDTPrice);
 document.getElementById('toggleFlashBtn').addEventListener('click', toggleFlash);
 
 fetchUSDTPrice();
-
-if (flashEnabled) {
-    document.getElementById('usdtPrice').classList.add('flash');
-    document.getElementById('toggleFlashBtn').textContent = 'Disable Flash';
-}
+applyFlashState();
