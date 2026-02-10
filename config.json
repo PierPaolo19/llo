@@ -1,0 +1,60 @@
+{
+  "networks": {
+    "ethereum": {
+      "name": "Ethereum Mainnet",
+      "rpc": "https://eth.llamarpc.com",
+      "chainId": 1,
+      "usdtContract": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+      "explorer": "https://etherscan.io",
+      "type": "ERC20"
+    },
+    "bsc": {
+      "name": "Binance Smart Chain",
+      "rpc": "https://bsc-dataseed.binance.org/",
+      "chainId": 56,
+      "usdtContract": "0x55d398326f99059fF775485246999027B3197955",
+      "explorer": "https://bscscan.com",
+      "type": "BEP20"
+    },
+    "tron": {
+      "name": "TRON Network",
+      "rpc": "https://api.trongrid.io",
+      "usdtContract": "TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t",
+      "explorer": "https://tronscan.org",
+      "type": "TRC20"
+    }
+  },
+  "walletSupport": [
+    "MetaMask",
+    "Trust Wallet",
+    "Binance Wallet",
+    "Web3 Wallets",
+    "Hardware Wallets (Ledger, Trezor)",
+    "Any wallet supporting the respective blockchain"
+  ],
+  "features": {
+    "readOnly": true,
+    "supportedOperations": [
+      "Check USDT balance",
+      "View token information",
+      "Query network details",
+      "Display contract addresses"
+    ],
+    "unsupportedOperations": [
+      "Send transactions",
+      "Sign messages",
+      "Access private keys"
+    ]
+  },
+  "security": {
+    "privateKeysRequired": false,
+    "readOnlyMode": true,
+    "educationalPurpose": true,
+    "warnings": [
+      "Never share private keys",
+      "Always verify addresses",
+      "Use at your own risk",
+      "Educational purpose only"
+    ]
+  }
+}
