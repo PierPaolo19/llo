@@ -1,5 +1,12 @@
 let flashEnabled = true;
 
+const DEMO_BASE_PRICE = 1.0000;
+const DEMO_PRICE_VARIANCE = 0.0001;
+const DEMO_BASE_CHANGE = 0;
+const DEMO_CHANGE_VARIANCE = 0.2;
+const DEMO_BASE_MARKET_CAP = 95.5;
+const DEMO_MARKET_CAP_VARIANCE = 2;
+
 async function fetchUSDTPrice() {
     const statusEl = document.getElementById('status');
     statusEl.textContent = 'Fetching USDT data...';
@@ -35,9 +42,9 @@ async function fetchUSDTPrice() {
     } catch (error) {
         console.error('Error fetching USDT data:', error);
         
-        const demoPrice = 1.0000 + (Math.random() - 0.5) * 0.0001;
-        const demoChange = (Math.random() - 0.5) * 0.2;
-        const demoMarketCap = 95.5 + (Math.random() - 0.5) * 2;
+        const demoPrice = DEMO_BASE_PRICE + (Math.random() - 0.5) * DEMO_PRICE_VARIANCE;
+        const demoChange = DEMO_BASE_CHANGE + (Math.random() - 0.5) * DEMO_CHANGE_VARIANCE;
+        const demoMarketCap = DEMO_BASE_MARKET_CAP + (Math.random() - 0.5) * DEMO_MARKET_CAP_VARIANCE;
         
         document.getElementById('priceValue').textContent = `$${demoPrice.toFixed(4)}`;
         
