@@ -10,8 +10,8 @@
   devices.  The content mirrors system/vendor/etc/camera/camera_config.xml.
 
   Reference properties:
-    * persist.vendor.camera.HAL3.enabled  - master HAL3 switch (set in system.prop)
-    * hardware_level - 3 = FULL, 2 = LIMITED, 1 = LEGACY
+    • persist.vendor.camera.HAL3.enabled  - master HAL3 switch (set in system.prop)
+    • hardware_level - 3 = FULL, 2 = LIMITED, 1 = LEGACY
 -->
 <CameraModuleConfig>
 

@@ -28,14 +28,15 @@ apply_props() {
 [ -f "$MODDIR/system.prop" ] && apply_props
 
 # Android 12 (SDK 31+): also copy camera config to /odm/etc/camera/ if present.
-# The ODM partition is remounted read-write briefly here via Magisk magic mount;
-# a direct copy is a best-effort fallback for devices where the vendor overlay
-# is not picked up from /system/vendor via Magic Mount.
+# This is a late-boot fallback: post-fs-data.sh attempts the same copy early in
+# boot, but Magic Mount may not have propagated the overlay at that stage on all
+# devices.  Running the copy here (post-boot) guarantees the file is present
+# before cameraserver is restarted below.
 if [ "$SDK" -ge 31 ] 2>/dev/null; then
     ODM_CAM_DIR="/odm/etc/camera"
-    VENDOR_CFG="$MODDIR/system/vendor/etc/camera/camera_config.xml"
-    if [ -d "$ODM_CAM_DIR" ] && [ -f "$VENDOR_CFG" ]; then
-        cp -f "$VENDOR_CFG" "$ODM_CAM_DIR/camera_config.xml" 2>/dev/null || true
+    ODM_CFG="$MODDIR/system/odm/etc/camera/camera_config.xml"
+    if [ -d "$ODM_CAM_DIR" ] && [ -f "$ODM_CFG" ]; then
+        cp -f "$ODM_CFG" "$ODM_CAM_DIR/camera_config.xml" 2>/dev/null || true
     fi
 fi
 
