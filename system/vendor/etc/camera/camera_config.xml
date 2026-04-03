@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  camera_config.xml – Camera2 API configuration override
+  camera_config.xml - Camera2 API configuration override
   Samsung Galaxy M31 (SM-M315F) / Exynos 9611
 
   This file is placed at /vendor/etc/camera/camera_config.xml via the
