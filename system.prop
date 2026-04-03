@@ -1,10 +1,12 @@
 # Camera2 API / HAL3 enablement properties
-# Samsung Galaxy M31 (Exynos 9611)
+# Samsung Galaxy M31 (Exynos 9611) - Android 10 / 11 / 12 (One UI 2.x - 4.x)
+
+# ── Legacy namespace (Android 10 / 11 / One UI 2.x - 3.x) ─────────────────────
 
 # Enable Camera HAL3 (Camera2 API)
 persist.camera.HAL3.enabled=1
 
-# Enable Camera2 API support level (FULL = 3)
+# Enable Camera2 API support level
 persist.camera.camera2.api.support=1
 
 # Use monotonic timestamps (required by Camera2)
@@ -18,3 +20,17 @@ persist.camera.eis.enable=1
 
 # Samsung-specific: advertise Camera2 full support
 camera.disable_zsl_mode=0
+
+# ── Vendor namespace (Android 12 / One UI 4.x) ────────────────────────────────
+# On Android 12, Samsung relocated many camera properties to persist.vendor.*
+# and debug.* namespaces; both sets are set so the module works across OS versions.
+
+persist.vendor.camera.HAL3.enabled=1
+persist.vendor.camera.camera2.api.support=1
+persist.vendor.camera.eis.enable=1
+
+# Debug / developer property used by Samsung HAL on Android 12
+debug.camera.hal3=1
+
+# Force ZSL pipeline path expected by HAL3 on One UI 4.x
+debug.camera.zsl=1

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  camera_config.xml - Camera2 API configuration override (ODM partition)
+  Samsung Galaxy M31 (SM-M315F) / Exynos 9611 / Android 12 (One UI 4.x)
+
+  On Android 12, the Samsung camera HAL (vendor.samsung.hardware.camera.provider)
+  reads ODM partition configuration files before falling back to the vendor
+  partition.  This file is placed at /odm/etc/camera/camera_config.xml via the
+  Magisk module's system/odm overlay so that it is picked up on Android 12
+  devices.  The content mirrors system/vendor/etc/camera/camera_config.xml.
+
+  Reference properties:
+    * persist.vendor.camera.HAL3.enabled  - master HAL3 switch (set in system.prop)
+    * hardware_level - 3 = FULL, 2 = LIMITED, 1 = LEGACY
+-->
+<CameraModuleConfig>
+
+    <!-- Global HAL version -->
+    <HALVersion value="3" />
+
+    <!-- Rear wide-angle (main) camera - 64 MP -->
+    <Camera id="0">
+        <HALVersion value="3" />
+        <SupportCamera2API value="true" />
+        <HardwareLevel value="3" />   <!-- FULL -->
+    </Camera>
+
+    <!-- Front camera - 32 MP -->
+    <Camera id="1">
+        <HALVersion value="3" />
+        <SupportCamera2API value="true" />
+        <HardwareLevel value="3" />   <!-- FULL -->
+    </Camera>
+
+    <!-- Rear ultra-wide camera -->
+    <Camera id="2">
+        <HALVersion value="3" />
+        <SupportCamera2API value="true" />
+        <HardwareLevel value="2" />   <!-- LIMITED -->
+    </Camera>
+
+    <!-- Rear macro / depth camera -->
+    <Camera id="3">
+        <HALVersion value="3" />
+        <SupportCamera2API value="true" />
+        <HardwareLevel value="2" />   <!-- LIMITED -->
+    </Camera>
+
+</CameraModuleConfig>

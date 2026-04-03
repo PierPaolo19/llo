@@ -22,17 +22,31 @@ ui_print " "
 # ── Device check ─────────────────────────────────────────────────────────────
 DEVICE=$(getprop ro.product.model)
 PLATFORM=$(getprop ro.board.platform)
+SDK=$(getprop ro.build.version.sdk)
 
 ui_print "- Detected device : $DEVICE"
 ui_print "- SoC platform    : $PLATFORM"
+ui_print "- Android SDK     : $SDK"
 ui_print " "
+
+# Require Android 10 or newer (SDK 29+)
+if [ -n "$SDK" ] && [ "$SDK" -lt 29 ] 2>/dev/null; then
+    abort "Android 10 (SDK 29) or newer is required. Detected SDK $SDK."
+fi
+
+# Warn if running on Android 13+ (untested)
+if [ -n "$SDK" ] && [ "$SDK" -ge 33 ] 2>/dev/null; then
+    ui_print "! Warning: Android 13+ detected (SDK $SDK). This module was tested"
+    ui_print "! up to Android 12. Proceeding – use at your own risk."
+    ui_print " "
+fi
 
 # Warn (but do not block) if the device does not look like an M31 / Exynos 9611
 case "$DEVICE" in
   *M31*|*m31*) ;;
   *)
     ui_print "! Warning: This module is designed for the Samsung Galaxy M31."
-    ui_print "! Continuing anyway – use at your own risk."
+    ui_print "! Continuing anyway - use at your own risk."
     ui_print " "
     ;;
 esac
@@ -41,7 +55,7 @@ case "$PLATFORM" in
   exynos9611|universal9611) ;;
   *)
     ui_print "! Warning: Platform '$PLATFORM' is not Exynos 9611."
-    ui_print "! Continuing anyway – use at your own risk."
+    ui_print "! Continuing anyway - use at your own risk."
     ui_print " "
     ;;
 esac

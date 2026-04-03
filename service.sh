@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# service.sh – runs after the system has fully booted.
+# service.sh - runs after the system has fully booted.
 # Ensures Camera2 / HAL3 properties persist and restarts the camera
 # service if it was started before the module's post-fs-data hook ran.
 
@@ -13,6 +13,8 @@ done
 # Give cameraserver a short grace period, then re-apply properties
 sleep 3
 
+SDK=$(getprop ro.build.version.sdk)
+
 # Re-apply properties at runtime using resetprop (Magisk built-in)
 apply_props() {
     while IFS='=' read -r key value; do
@@ -25,8 +27,26 @@ apply_props() {
 
 [ -f "$MODDIR/system.prop" ] && apply_props
 
-# If cameraserver is running, restart it so it picks up the new properties
-CAM_PID=$(pidof cameraserver 2>/dev/null)
-if [ -n "$CAM_PID" ]; then
-    kill "$CAM_PID" 2>/dev/null
+# Android 12 (SDK 31+): also copy camera config to /odm/etc/camera/ if present.
+# The ODM partition is remounted read-write briefly here via Magisk magic mount;
+# a direct copy is a best-effort fallback for devices where the vendor overlay
+# is not picked up from /system/vendor via Magic Mount.
+if [ "$SDK" -ge 31 ] 2>/dev/null; then
+    ODM_CAM_DIR="/odm/etc/camera"
+    VENDOR_CFG="$MODDIR/system/vendor/etc/camera/camera_config.xml"
+    if [ -d "$ODM_CAM_DIR" ] && [ -f "$VENDOR_CFG" ]; then
+        cp -f "$VENDOR_CFG" "$ODM_CAM_DIR/camera_config.xml" 2>/dev/null || true
+    fi
 fi
+
+# If cameraserver is running, restart it so it picks up the new properties.
+# On Android 12, the process may be named "android.hardware.camera.provider" or
+# "cameraserver" depending on the HAL transport (AIDL vs HIDL).
+for proc in cameraserver "android.hardware.camera.provider@2.4-service_64" \
+            "android.hardware.camera.provider@2.5-service_64" \
+            "vendor.samsung.hardware.camera.provider@4.0-service"; do
+    CAM_PID=$(pidof "$proc" 2>/dev/null)
+    if [ -n "$CAM_PID" ]; then
+        kill "$CAM_PID" 2>/dev/null
+    fi
+done
