@@ -1,0 +1,61 @@
+#!/sbin/sh
+# Camera2 API Enabler - Samsung M31 Exynos
+# Magisk Module Installation Script
+
+SKIPUNZIP=1
+
+# Extract module files
+unzip -o "$ZIPFILE" 'META-INF/com/google/android/update-binary' -d "$TMPDIR" >/dev/null 2>&1
+unzip -o "$ZIPFILE" 'module.prop' 'system.prop' 'service.sh' 'post-fs-data.sh' \
+    'system/*' -d "$MODPATH" >/dev/null 2>&1
+
+# ── UI helpers ───────────────────────────────────────────────────────────────
+ui_print() { echo "$1"; }
+abort()    { ui_print "ERROR: $1"; exit 1; }
+
+ui_print " "
+ui_print "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+ui_print "  Camera2 API Enabler - Samsung M31 Exynos"
+ui_print "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+ui_print " "
+
+# ── Device check ─────────────────────────────────────────────────────────────
+DEVICE=$(getprop ro.product.model)
+PLATFORM=$(getprop ro.board.platform)
+
+ui_print "- Detected device : $DEVICE"
+ui_print "- SoC platform    : $PLATFORM"
+ui_print " "
+
+# Warn (but do not block) if the device does not look like an M31 / Exynos 9611
+case "$DEVICE" in
+  *M31*|*m31*) ;;
+  *)
+    ui_print "! Warning: This module is designed for the Samsung Galaxy M31."
+    ui_print "! Continuing anyway – use at your own risk."
+    ui_print " "
+    ;;
+esac
+
+case "$PLATFORM" in
+  exynos9611|universal9611) ;;
+  *)
+    ui_print "! Warning: Platform '$PLATFORM' is not Exynos 9611."
+    ui_print "! Continuing anyway – use at your own risk."
+    ui_print " "
+    ;;
+esac
+
+# ── Set permissions ───────────────────────────────────────────────────────────
+set_perm_recursive "$MODPATH" root root 0755 0644
+
+# Scripts must be executable
+for f in service.sh post-fs-data.sh; do
+  [ -f "$MODPATH/$f" ] && chmod 0755 "$MODPATH/$f"
+done
+
+ui_print "- Module installed successfully."
+ui_print "- Please reboot your device to apply Camera2 API changes."
+ui_print " "
+ui_print "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+ui_print " "

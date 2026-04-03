@@ -1,0 +1,20 @@
+# Camera2 API / HAL3 enablement properties
+# Samsung Galaxy M31 (Exynos 9611)
+
+# Enable Camera HAL3 (Camera2 API)
+persist.camera.HAL3.enabled=1
+
+# Enable Camera2 API support level (FULL = 3)
+persist.camera.camera2.api.support=1
+
+# Use monotonic timestamps (required by Camera2)
+media.camera.ts.monotonic=1
+
+# Prevent the camera service from falling back to HAL1
+ro.camera.enableCamera1ForVideoRecord=0
+
+# Force EIS (Electronic Image Stabilisation) via HAL where available
+persist.camera.eis.enable=1
+
+# Samsung-specific: advertise Camera2 full support
+camera.disable_zsl_mode=0

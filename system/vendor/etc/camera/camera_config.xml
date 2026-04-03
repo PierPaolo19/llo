@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  camera_config.xml – Camera2 API configuration override
+  Samsung Galaxy M31 (SM-M315F) / Exynos 9611
+
+  This file is placed at /vendor/etc/camera/camera_config.xml via the
+  Magisk module's system/ overlay.  It instructs the Samsung camera HAL to
+  expose the Camera2 (HAL3) interface and advertise FULL hardware level
+  support to applications.
+
+  Reference properties:
+    • persist.camera.HAL3.enabled  – master HAL3 switch (set in system.prop)
+    • hardware_level              – 3 = FULL, 2 = LIMITED, 1 = LEGACY
+-->
+<CameraModuleConfig>
+
+    <!-- ── Global HAL version ──────────────────────────────────────────── -->
+    <HALVersion value="3" />
+
+    <!-- ── Per-logical-camera configuration ───────────────────────────── -->
+
+    <!-- Rear wide-angle (main) camera – 64 MP -->
+    <Camera id="0">
+        <HALVersion value="3" />
+        <SupportCamera2API value="true" />
+        <HardwareLevel value="3" />   <!-- FULL -->
+    </Camera>
+
+    <!-- Front camera – 32 MP -->
+    <Camera id="1">
+        <HALVersion value="3" />
+        <SupportCamera2API value="true" />
+        <HardwareLevel value="3" />   <!-- FULL -->
+    </Camera>
+
+    <!-- Rear ultra-wide camera -->
+    <Camera id="2">
+        <HALVersion value="3" />
+        <SupportCamera2API value="true" />
+        <HardwareLevel value="2" />   <!-- LIMITED -->
+    </Camera>
+
+    <!-- Rear macro / depth camera -->
+    <Camera id="3">
+        <HALVersion value="3" />
+        <SupportCamera2API value="true" />
+        <HardwareLevel value="2" />   <!-- LIMITED -->
+    </Camera>
+
+</CameraModuleConfig>
