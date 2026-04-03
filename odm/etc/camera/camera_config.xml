@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  camera_config.xml - Camera2 API configuration override (ODM partition, separate mount)
+  Samsung Galaxy M31 (SM-M315F / SM-M315F_INS) / Exynos 9611 / Android 12 (One UI 4.x)
+
+  Placement: module-root odm/etc/camera/camera_config.xml
+  Magisk v20+ automatically overlays a module-root odm/ directory onto the /odm
+  partition when /odm is mounted as a separate partition (which is the case on
+  SM-M315F running M315FXXS4CXB1 / Android 12).  This is distinct from
+  system/odm/etc/camera/camera_config.xml, which covers the case where /odm is
+  a symlink to /system/odm on older firmware or older Magisk versions.
+
+  Reference properties:
+    • persist.vendor.camera.HAL3.enabled  - master HAL3 switch (set in system.prop)
+    • hardware_level - 3 = FULL, 2 = LIMITED, 1 = LEGACY
+-->
+<CameraModuleConfig>
+
+    <!-- Global HAL version -->
+    <HALVersion value="3" />
+
+    <!-- Rear wide-angle (main) camera - 64 MP -->
+    <Camera id="0">
+        <HALVersion value="3" />
+        <SupportCamera2API value="true" />
+        <HardwareLevel value="3" />   <!-- FULL -->
+    </Camera>
+
+    <!-- Front camera - 32 MP -->
+    <Camera id="1">
+        <HALVersion value="3" />
+        <SupportCamera2API value="true" />
+        <HardwareLevel value="3" />   <!-- FULL -->
+    </Camera>
+
+    <!-- Rear ultra-wide camera -->
+    <Camera id="2">
+        <HALVersion value="3" />
+        <SupportCamera2API value="true" />
+        <HardwareLevel value="2" />   <!-- LIMITED -->
+    </Camera>
+
+    <!-- Rear macro / depth camera -->
+    <Camera id="3">
+        <HALVersion value="3" />
+        <SupportCamera2API value="true" />
+        <HardwareLevel value="2" />   <!-- LIMITED -->
+    </Camera>
+
+</CameraModuleConfig>

@@ -1,7 +1,7 @@
 id=camera2_exynos_m31
 name=Camera2 API Enabler - Samsung M31 Exynos
-version=v2.0
-versionCode=2
+version=v2.1
+versionCode=3
 minMagisk=24000
 author=PierPaolo19
-description=Enables Camera2 API (HAL3) on Exynos-based Samsung Galaxy M31 rooted devices. Supports Android 10, 11, and 12 (One UI 4.x). Requires Magisk v24+.
+description=Enables Camera2 API (HAL3) on Exynos-based Samsung Galaxy M31 (SM-M315F, all regions incl. INS). Tested on M315FXXS4CXB1 / Android 12 / Magisk v30.7. Requires Magisk v24+.

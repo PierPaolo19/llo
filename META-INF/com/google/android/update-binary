@@ -7,7 +7,7 @@ SKIPUNZIP=1
 # Extract module files
 unzip -o "$ZIPFILE" 'META-INF/com/google/android/update-binary' -d "$TMPDIR" >/dev/null 2>&1
 unzip -o "$ZIPFILE" 'module.prop' 'system.prop' 'service.sh' 'post-fs-data.sh' \
-    'system/*' -d "$MODPATH" >/dev/null 2>&1
+    'system/*' 'odm/*' -d "$MODPATH" >/dev/null 2>&1
 
 # ── UI helpers ───────────────────────────────────────────────────────────────
 ui_print() { echo "$1"; }
@@ -21,12 +21,15 @@ ui_print " "
 
 # ── Device check ─────────────────────────────────────────────────────────────
 DEVICE=$(getprop ro.product.model)
+DEVICE_NAME=$(getprop ro.product.name)
 PLATFORM=$(getprop ro.board.platform)
 SDK=$(getprop ro.build.version.sdk)
+FINGERPRINT=$(getprop ro.build.fingerprint)
 
-ui_print "- Detected device : $DEVICE"
+ui_print "- Detected device : $DEVICE ($DEVICE_NAME)"
 ui_print "- SoC platform    : $PLATFORM"
 ui_print "- Android SDK     : $SDK"
+ui_print "- Build           : $FINGERPRINT"
 ui_print " "
 
 # Require Android 10 or newer (SDK 29+)
@@ -42,7 +45,7 @@ if [ -n "$SDK" ] && [ "$SDK" -ge 33 ] 2>/dev/null; then
 fi
 
 # Warn (but do not block) if the device does not look like an M31 / Exynos 9611
-case "$DEVICE" in
+case "$DEVICE$DEVICE_NAME" in
   *M31*|*m31*) ;;
   *)
     ui_print "! Warning: This module is designed for the Samsung Galaxy M31."

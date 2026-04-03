@@ -32,9 +32,12 @@ apply_props() {
 # boot, but Magic Mount may not have propagated the overlay at that stage on all
 # devices.  Running the copy here (post-boot) guarantees the file is present
 # before cameraserver is restarted below.
+# Magisk v20+ overlays $MODPATH/odm/ onto /odm automatically when /odm is a
+# separate partition (as on SM-M315F / M315FXXS4CXB1); this manual copy covers
+# any edge cases where the Magic Mount overlay has not yet taken effect.
 if [ "$SDK" -ge 31 ] 2>/dev/null; then
     ODM_CAM_DIR="/odm/etc/camera"
-    ODM_CFG="$MODDIR/system/odm/etc/camera/camera_config.xml"
+    ODM_CFG="$MODDIR/odm/etc/camera/camera_config.xml"
     if [ -d "$ODM_CAM_DIR" ] && [ -f "$ODM_CFG" ]; then
         cp -f "$ODM_CFG" "$ODM_CAM_DIR/camera_config.xml" 2>/dev/null || true
     fi

@@ -31,9 +31,11 @@ apply_props() {
 # If the device exposes an ODM partition, mirror the config there too.
 # NOTE: This copy also runs in service.sh as a late-boot fallback for devices
 # where Magic Mount has not yet propagated the overlay at this early stage.
+# Magisk v20+ overlays $MODPATH/odm/ onto /odm automatically when /odm is a
+# separate partition, but this manual copy covers any edge cases.
 if [ "$SDK" -ge 31 ] 2>/dev/null; then
     ODM_CAM_DIR="/odm/etc/camera"
-    ODM_CFG="$MODDIR/system/odm/etc/camera/camera_config.xml"
+    ODM_CFG="$MODDIR/odm/etc/camera/camera_config.xml"
     if [ -d "$ODM_CAM_DIR" ] && [ -f "$ODM_CFG" ]; then
         cp -f "$ODM_CFG" "$ODM_CAM_DIR/camera_config.xml" 2>/dev/null || true
     fi
