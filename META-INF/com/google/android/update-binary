@@ -33,12 +33,12 @@ ui_print "- Build           : $FINGERPRINT"
 ui_print " "
 
 # Require Android 10 or newer (SDK 29+)
-if [ -n "$SDK" ] && [ "$SDK" -lt 29 ] 2>/dev/null; then
+if [ -n "$SDK" ] && [ "$SDK" -lt 29 ]; then
     abort "Android 10 (SDK 29) or newer is required. Detected SDK $SDK."
 fi
 
 # Warn if running on Android 13+ (untested)
-if [ -n "$SDK" ] && [ "$SDK" -ge 33 ] 2>/dev/null; then
+if [ -n "$SDK" ] && [ "$SDK" -ge 33 ]; then
     ui_print "! Warning: Android 13+ detected (SDK $SDK). This module was tested"
     ui_print "! up to Android 12. Proceeding – use at your own risk."
     ui_print " "

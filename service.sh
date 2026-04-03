@@ -37,6 +37,9 @@ apply_props() {
 # any edge cases where the Magic Mount overlay has not yet taken effect.
 if [ "$SDK" -ge 31 ] 2>/dev/null; then
     ODM_CAM_DIR="/odm/etc/camera"
+    # $MODDIR is the installed module directory (/data/adb/modules/<id>).
+    # The module-root odm/ dir is extracted there by the installer and
+    # provides the source for this manual copy fallback.
     ODM_CFG="$MODDIR/odm/etc/camera/camera_config.xml"
     if [ -d "$ODM_CAM_DIR" ] && [ -f "$ODM_CFG" ]; then
         cp -f "$ODM_CFG" "$ODM_CAM_DIR/camera_config.xml" 2>/dev/null || true

@@ -4,6 +4,7 @@
 # ── Legacy namespace (Android 10 / 11 / One UI 2.x - 3.x) ─────────────────────
 
 # Enable Camera HAL3 (Camera2 API)
+# NOTE: Property names are exact Samsung HAL identifiers - HAL3 is uppercase here.
 persist.camera.HAL3.enabled=1
 
 # Enable Camera2 API support level
@@ -29,7 +30,9 @@ persist.vendor.camera.HAL3.enabled=1
 persist.vendor.camera.camera2.api.support=1
 persist.vendor.camera.eis.enable=1
 
-# Debug / developer property used by Samsung HAL on Android 12
+# Debug / developer properties used by Samsung HAL on Android 12.
+# NOTE: These are distinct from the persist.*.HAL3 properties above -
+# debug.camera.hal3 uses lowercase 'hal3' as the Samsung HAL expects.
 debug.camera.hal3=1
 
 # Force ZSL pipeline path expected by HAL3 on One UI 4.x
