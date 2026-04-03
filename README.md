@@ -37,6 +37,7 @@ See [Network Documentation](docs/NETWORKS.md) for detailed network information.
 - **Well-tested**: Comprehensive test suite included
 - **Desktop Application**: User-friendly GUI for managing flash loans across networks
 - **Windows 10 Pro optimized**: Full support with detailed setup guide and installers
+- **Android support**: Use with MetaMask Mobile or Trust Wallet; Magisk v30.7 compatible
 
 ## 📋 Prerequisites
 
@@ -50,6 +51,11 @@ See [Network Documentation](docs/NETWORKS.md) for detailed network information.
 - **macOS 10.10+** - Intel or Apple Silicon
 - **Linux** - Ubuntu 18.04+ / Debian 10+
 - MetaMask or Web3-compatible wallet browser extension
+
+### For Android
+- Android 8.0 (Oreo) or higher
+- MetaMask Mobile, Trust Wallet, or TokenPocket
+- Optional: **Magisk v30.7** for rooted device usage — [Android Guide](docs/ANDROID.md)
 
 ## 🔧 Installation
 
@@ -409,6 +415,7 @@ The release workflow automatically:
 - [Tron Deployment](docs/TRON.md) - TRC20 deployment instructions
 - [Desktop Application Guide](docs/DESKTOP.md) - How to use the desktop app
 - [Windows 10 Pro Guide](docs/WINDOWS.md) - Windows installation and troubleshooting
+- [Android Guide](docs/ANDROID.md) - Android usage with MetaMask Mobile & Magisk v30.7
 - [Releases Guide](docs/RELEASES.md) - **How to create GitHub releases**
 - [Getting Started](docs/GETTING_STARTED.md) - Complete setup guide
 - [Technical Documentation](docs/TECHNICAL.md) - Technical specifications

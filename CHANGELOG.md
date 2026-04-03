@@ -8,7 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Initial development work
+- Android support guide with Magisk v30.7 compatibility (`docs/ANDROID.md`)
+  - MetaMask Mobile and Trust Wallet setup instructions
+  - Magisk v30.7 installation and configuration
+  - Shamiko module guide for hiding root from wallet apps
+  - Network configuration for BSC and Polygon on Android
+  - Termux/ADB usage for developer interaction
+  - Security considerations for rooted devices
 
 ## [1.0.0] - 2024-01-15
 
